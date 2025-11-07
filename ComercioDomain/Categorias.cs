@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ComercioDomain
 {
-    public class Class1
+    internal class Categorias
     {
     }
 }
