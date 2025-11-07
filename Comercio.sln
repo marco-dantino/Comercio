@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36511.14 d17.14
+VisualStudioVersion = 17.14.36511.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Comercio", "Comercio.csproj", "{C3DE2BF9-BB6D-4058-86E2-21DBD200D768}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComercioWeb", "ComercioWeb.csproj", "{C3DE2BF9-BB6D-4058-86E2-21DBD200D768}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComercioService", "ComercioService\ComercioService.csproj", "{C44849F1-4334-4CBA-83F6-4931CBB65297}"
 EndProject
