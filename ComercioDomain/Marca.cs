@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace ComercioDomain
 {
-    internal class Marcas
+    public class Marca
     {
+        public int Id { get; set; }
+        public int Nombre { get; set; }
     }
 }

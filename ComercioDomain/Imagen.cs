@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace ComercioDomain
 {
-    internal class Imagenes
+    public class Imagen
     {
+        public int Id { get; set; }
+        public int IdProducto { get; set; }
+        public string Url { get; set; }
     }
 }

@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace ComercioDomain
 {
-    internal class Roles
+    public class Rol
     {
+        public int RolId { get; set; }
+        public string RolNombre { get; set; }
+        public string RolDescripcion { get; set; }
+        public bool Activo { get; set; }
     }
 }
