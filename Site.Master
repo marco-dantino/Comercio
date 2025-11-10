@@ -1,70 +1,155 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Comercio.SiteMaster" %>
 
 <!DOCTYPE html>
-
 <html lang="es">
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%: Page.Title %> - Mi aplicación ASP.NET</title>
+    <title>
+        <asp:ContentPlaceHolder ID="TitleContent" runat="server" />
+    </title>
 
-    <asp:PlaceHolder runat="server">
-        <%: Scripts.Render("~/bundles/modernizr") %>
-    </asp:PlaceHolder>
+    <!-- Fonts e íconos -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
 
-    <webopt:bundlereference runat="server" path="~/Content/css" />
-    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#DC2626',
+                        "background-dark": "#121212",
+                    },
+                    fontFamily: { display: ["Inter", "sans-serif"] },
+                    borderRadius: { DEFAULT: "0.5rem" },
+                },
+            },
+        };
+    </script>
 
+    <style>
+        .material-icons {
+            font-size: inherit;
+        }
+       
+    /* ====== TABLA DARK SIMIL TAILWIND ====== */
+    .grid-dark {
+        width: 100%;
+        border-collapse: collapse;
+        border-radius: 0.5rem;
+        overflow: hidden;
+        background-color: #1f2937; /* surface-dark */
+        color: #f9fafb; /* text-dark */
+        font-family: 'Inter', sans-serif;
+        font-size: 0.875rem;
+        text-align: left;
+    }
+
+    .grid-dark thead {
+        background-color: #374151; /* dark:bg-gray-700 */
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 0.05em;
+    }
+
+    .grid-dark th {
+        padding: 0.75rem 1.5rem;
+        color: #d1d5db; /* gray-300 */
+        font-weight: 600;
+        border-bottom: 1px solid #4b5563; /* gray-600 */
+    }
+
+    .grid-dark td {
+        padding: 0.75rem 1.5rem;
+        border-bottom: 1px solid #374151; /* gray-700 */
+    }
+
+    .grid-dark tr:hover {
+        background-color: #111827; /* dark:hover:bg-gray-800 */
+        transition: background-color 0.2s ease;
+    }
+
+    .grid-dark td.text-subtle {
+        color: #9ca3af; /* subtle-dark */
+    }
+
+    .grid-dark .actions {
+        text-align: center;
+    }
+
+    .grid-dark button {
+        color: #dc2626; /* primary */
+        transition: opacity 0.2s ease;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    .grid-dark button:hover {
+        opacity: 0.8;
+    }
+
+    /* ====== OPCIONAL: VACÍO ====== */
+    .grid-dark-empty {
+        padding: 1rem;
+        text-align: center;
+        color: #9ca3af;
+        background-color: #1f2937;
+    }
+</style>
+    
 </head>
-<body>
-    <form runat="server">
-        <asp:ScriptManager runat="server">
-            <Scripts>
-                <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
-                <%--Framework Scripts--%>
-                <asp:ScriptReference Name="MsAjaxBundle" />
-                <asp:ScriptReference Name="jquery" />
-                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
-                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
-                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
-                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
-                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
-                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
-                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
-                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
-                <asp:ScriptReference Name="WebFormsBundle" />
-                <%--Site Scripts--%>
-            </Scripts>
-        </asp:ScriptManager>
 
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
-            <div class="container">
-                <a class="navbar-brand" runat="server" href="~/">Nombre de la aplicación</a>
-                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Alternar navegación" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item"><a class="nav-link" runat="server" href="~/">Inicio</a></li>
-                        <li class="nav-item"><a class="nav-link" runat="server" href="~/About">Acerca de</a></li>
-                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Contact">Contacto</a></li>
-                    </ul>
+<body class="bg-background-dark font-display text-gray-200 antialiased">
+     <div class="flex flex-col min-h-screen">
+    <form id="form1" runat="server" class="flex flex-col min-h-screen">
+        <!-- HEADER / NAV -->
+        <header class="bg-gray-800 shadow-md">
+            <nav class="container mx-auto px-6 py-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <a class="text-white text-xl font-bold" href="AdminPage.aspx">Administración comercial</a>
+                        <div class="hidden md:flex ml-10 space-x-8">
+                            <a href="Productos.aspx" class="text-gray-300 hover:text-white transition-colors">Productos</a>
+                            <a href="Categorias.aspx" class="text-gray-300 hover:text-white transition-colors">Categorías</a>
+                            <a href="Marcas.aspx" class="text-gray-300 hover:text-white transition-colors">Marcas</a>
+                            <a href="Clientes.aspx" class="text-gray-300 hover:text-white transition-colors">Clientes</a>
+                            <a href="Proveedores.aspx" class="text-gray-300 hover:text-white transition-colors">Proveedores</a>
+                            <a href="Usuarios.aspx" class="text-gray-300 hover:text-white transition-colors">Usuarios</a>
+                            <a href="Password.aspx" class="text-gray-300 hover:text-white transition-colors">Contraseñas</a>
+                        </div>
+                    </div>
+                    <div>
+                        <a href="Login.aspx" class="text-gray-300 hover:text-white transition-colors">Cerrar Sesión</a>
+                    </div>
                 </div>
-            </div>
-        </nav>
-        <div class="container body-content">
-            <asp:ContentPlaceHolder ID="MainContent" runat="server">
-            </asp:ContentPlaceHolder>
-            <hr />
-            <footer>
+            </nav>
+        </header>
+
+        <!-- CONTENIDO DE PÁGINAS -->
+        
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+
+        <!-- FOOTER -->
+        <footer class="py-4">
+            <div class="container mx-auto px-6 text-center text-gray-400">
                 <p>&copy; <%: DateTime.Now.Year %> - Mi aplicación ASP.NET</p>
-            </footer>
-        </div>
+            </div>
+        </footer>
     </form>
-    <asp:PlaceHolder runat="server">
-        <%: Scripts.Render("~/Scripts/bootstrap.js") %>
-    </asp:PlaceHolder>
+         </div>
 </body>
 </html>
+
+<script>
+    document.querySelectorAll("aside a").forEach(a =>
+        a.href === location.href
+            ? a.classList.add("bg-primary/20", "text-primary")
+            : a.classList.add("text-slate-600", "hover:bg-primary/10", "hover:text-primary")
+    );
+</script>
+

@@ -10,6 +10,21 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#DC2626',
+                        "background-dark": "#121212",
+                    },
+                    fontFamily: { display: ["Inter", "sans-serif"] },
+                    borderRadius: { DEFAULT: "0.5rem" },
+                },
+            },
+        };
+    </script>
 
     <style>
         body {
@@ -18,12 +33,12 @@
     </style>
 </head>
 
-<body class="bg-black text-gray-100">
+<body class="bg-background-dark text-gray-100">
 
     <div class="grid min-h-screen md:grid-cols-2">
 
         <!-- Panel Izquierdo -->
-        <div class="hidden md:flex flex-col justify-center items-center bg-black relative">
+        <div class="hidden md:flex flex-col justify-center items-center bg-background-dark relative">
             <div class="absolute inset-0 bg-[url('https://lh3.googleusercontent.com/aida-public/AB6AXuBPtcXPiQi2ffdb1LIm__rjLH6RN0fFwgioFmAOIJEtKpPGjtkTd3KJpKmYAu6koiWhHMiyLOUmHOtp9DGxO653o_hMaPN1HndXdoxAnIrQoriOiF7MoFkFG-V3ntZAs9gSOCwEzZO8gv8WRPEgrLxf78Mv1fBMmajYp8lqpgqS4_AAPhqZtF-Ezf_fmD6e2tOxDCTbXxYqJpvS66ABOy6P9sK2fKiwc2EIGs-SubgOv_d6gjnk9kWYfB-b6fEWTgnrzp2M5Ciihrh7')] bg-cover bg-center opacity-10"></div>
             <div class="relative z-10 text-center px-6">
                 <div class="flex justify-center mb-6">
@@ -35,7 +50,7 @@
         </div>
 
         <!-- Panel Derecho -->
-        <div class="flex items-center justify-center p-8 bg-black">
+        <div class="flex items-center justify-center p-8 bg-background-dark">
             <div class="w-full max-w-md border border-gray-800 rounded-xl p-8 shadow-xl space-y-6">
                 <div>
                     <h2 class="text-3xl font-bold">Iniciar Sesión</h2>
@@ -47,8 +62,7 @@
                         <label class="block text-sm font-medium mb-2">Usuario</label>
                         <div class="relative">
                             <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">person</span>
-                            <input runat="server" id="txtUsuario" type="text" placeholder="Correo electrónico"
-                                class="w-full pl-10 pr-3 py-3 bg-gray-800 border border-gray-700 rounded-lg text-gray-100 focus:ring-2 focus:ring-red-600 placeholder:text-gray-500 focus:outline-none" />
+                            <input runat="server" id="txtUsuario" type="text" placeholder="Correo electrónico" class="w-full pl-10 pr-3 py-3 bg-gray-800 border border-gray-700 rounded-lg text-gray-100 focus:ring-2 focus:ring-red-600 placeholder:text-gray-500 focus:outline-none" />
                         </div>
                     </div>
 

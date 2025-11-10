@@ -1,44 +1,46 @@
-﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Comercio._Default" %>
+﻿<%@ Page Title="Administración comercial - Bienvenida" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Comercio._Default" %>
+
+<asp:Content ID="TitleContent" ContentPlaceHolderID="TitleContent" runat="server">
+    Administración comercial - Bienvenida
+</asp:Content>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-
-    <main>
-        <section class="row" aria-labelledby="aspnetTitle">
-            <h1 id="aspnetTitle">ASP.NET</h1>
-            <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
-            <p><a href="http://www.asp.net" class="btn btn-primary btn-md">Learn more &raquo;</a></p>
-        </section>
-
-        <div class="row">
-            <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-                <h2 id="gettingStartedTitle">Getting started</h2>
-                <p>
-                    ASP.NET Web Forms lets you build dynamic websites using a familiar drag-and-drop, event-driven model.
-                A design surface and hundreds of controls and components let you rapidly build sophisticated, powerful UI-driven sites with data access.
+    <main class="flex-grow container mx-auto px-6 py-16 flex flex-col items-center justify-center text-center">
+    <div class="max-w-7xl mx-auto text-center">
+        <h2 class="text-3xl sm:text-4xl font-semibold text-slate-300 mb-12">Bienvenido de nuevo</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+            <a class="group block p-6 sm:p-8 bg-gray-800 border border-slate-800 rounded-lg shadow-sm" href="#">
+                <div class="flex justify-center mb-4">
+                    <span class="material-icons-outlined text-primary text-5xl sm:text-6xl">shopping_cart
+                    </span>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2">Gestionar Compras</h3>
+                <p class="text-sm text-slate-400">
+                    Registra nuevas compras y administra tus proveedores.
                 </p>
-                <p>
-                    <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301948">Learn more &raquo;</a>
+            </a>
+            <a class="group block p-6 sm:p-8 bg-gray-800 border border-slate-800 rounded-lg shadow-sm" href="#">
+                <div class="flex justify-center mb-4">
+                    <span class="material-icons-outlined text-primary text-5xl sm:text-6xl">sell
+                    </span>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2">Gestionar Ventas</h3>
+                <p class="text-sm text-slate-400">
+                    Crea nuevas ventas, gestiona clientes y productos.
                 </p>
-            </section>
-            <section class="col-md-4" aria-labelledby="librariesTitle">
-                <h2 id="librariesTitle">Get more libraries</h2>
-                <p>
-                    NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.
+            </a>
+            <a class="group block p-6 sm:p-8 bg-gray-800 border border-slate-800 rounded-lg shadow-sm" href="#">
+                <div class="flex justify-center mb-4">
+                    <span class="material-icons-outlined text-primary text-5xl sm:text-6xl">receipt_long
+                    </span>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2">Ver Facturación</h3>
+                <p class="text-sm text-slate-400">
+                    Consulta y exporta los informes de facturación.
                 </p>
-                <p>
-                    <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301949">Learn more &raquo;</a>
-                </p>
-            </section>
-            <section class="col-md-4" aria-labelledby="hostingTitle">
-                <h2 id="hostingTitle">Web Hosting</h2>
-                <p>
-                    You can easily find a web hosting company that offers the right mix of features and price for your applications.
-                </p>
-                <p>
-                    <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301950">Learn more &raquo;</a>
-                </p>
-            </section>
+            </a>
         </div>
+    </div>
     </main>
-
+    
 </asp:Content>
