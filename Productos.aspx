@@ -9,10 +9,54 @@
     <main class="flex-grow container mx-auto px-6 py-10 flex flex-col justify-center text-center">
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-3xl font-bold">Gestión de Productos</h1>
-            <button class="bg-primary hover:bg-red-500 text-white font-semibold py-2 px-4 rounded-lg flex items-center gap-2 transition">
-                <span class="material-icons-outlined">add</span>
-                <span>Agregar Producto</span>
-            </button>
+            <asp:Label ID="lblMessage" runat="server" CssClass="text-green-400 font-medium" />
+            <asp:Label ID="lblMessage2" runat="server" CssClass="text-red-400 font-medium" />
+            <asp:Button ID="btnAgregaProducto" runat="server" CssClass="bg-green-600 hover:bg-green-700 text-white font-semibold px-5 py-2 rounded-lg transition" Text="Agregar Producto" />
+
+        </div>
+
+        <div class="bg-[#1f2937] rounded-lg shadow-md p-6 mb-8 text-left space-y-6">
+            <div class="grid md:grid-cols-3 gap-6">
+
+                <div>
+                    <label for="txtNombreProducto" class="block mb-1 font-medium">Nombre</label>
+                    <asp:TextBox ID="txtNombreProducto" runat="server" CssClass="w-full bg-[#111827] border border-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500" />
+                    <asp:RequiredFieldValidator ID="rfvNombreProducto" runat="server" ControlToValidate="txtNombreProducto" ErrorMessage="El nombre del producto es obligatorio." CssClass="text-red-400 text-sm" Display="Dynamic" />
+                </div>
+
+                <div>
+                    <label for="txtStockActual" class="block mb-1 font-medium">Stock Actual</label>
+                    <asp:TextBox ID="txtStockActual" runat="server" CssClass="w-full bg-[#111827] border border-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500" />
+                    <asp:RequiredFieldValidator ID="rfvStockProducto" runat="server" ControlToValidate="txtStockActual" ErrorMessage="El stock es obligatorio." CssClass="text-red-400 text-sm" Display="Dynamic" />
+                    <asp:RegularExpressionValidator ID="revStockActual" runat="server" ControlToValidate="txtStockActual" ErrorMessage="Debe ser un número entero positivo." CssClass="text-red-400 text-sm" Display="Dynamic" ValidationExpression="^\d+$" />
+                </div>
+
+                <div>
+                    <label for="txtPrecioUnitario" class="block mb-1 font-medium">Precio Unitario</label>
+                    <asp:TextBox ID="txtPrecioUnitario" runat="server" CssClass="w-full bg-[#111827] border border-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500" />
+                    <asp:RequiredFieldValidator ID="rfvPrecioUnitario" runat="server" ControlToValidate="txtPrecioUnitario" ErrorMessage="El precio unitario es obligatorio." CssClass="text-red-400 text-sm" Display="Dynamic" />
+                    <asp:RegularExpressionValidator ID="revPrecioUnitario" runat="server" ControlToValidate="txtPrecioUnitario" ErrorMessage="Debe ser un número válido." CssClass="text-red-400 text-sm" Display="Dynamic" ValidationExpression="^\d+(\.\d{1,2})?$" />
+                </div>
+
+                <div>
+                    <label for="txtPorcentajeGanancia" class="block mb-1 font-medium">Porcentaje de Ganancia</label>
+                    <asp:TextBox ID="txtPorcentajeGanancia" runat="server" CssClass="w-full bg-[#111827] border border-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500" />
+                    <asp:RequiredFieldValidator ID="rfvPorcentajeGanancia" runat="server" ControlToValidate="txtPorcentajeGanancia" ErrorMessage="Campo obligatorio." CssClass="text-red-400 text-sm" Display="Dynamic" />
+                    <asp:RegularExpressionValidator ID="RevPorcentajeGanancia" runat="server" ControlToValidate="txtPorcentajeGanancia" ErrorMessage="Debe ser un número entero positivo." CssClass="text-red-400 text-sm" Display="Dynamic" ValidationExpression="^\d+$" />
+                </div>
+
+                <div>
+                    <label for="ddlMarca" class="block mb-1 font-medium">Marca</label>
+                    <asp:DropDownList ID="ddlMarca" runat="server" CssClass="w-full bg-[#111827] border border-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500 text-gray-100"></asp:DropDownList>
+                    <asp:RequiredFieldValidator ID="rfvMarca" runat="server" ControlToValidate="ddlMarca" InitialValue="" ErrorMessage="La marca es requerida." CssClass="text-red-400 text-sm" Display="Dynamic" />
+                </div>
+
+                <div>
+                    <label for="ddlCategoria" class="block mb-1 font-medium">Categoría</label>
+                    <asp:DropDownList ID="ddlCategoria" runat="server" CssClass="w-full bg-[#111827] border border-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500 text-gray-100"></asp:DropDownList>
+                    <asp:RequiredFieldValidator ID="rfvCategoria" runat="server" ControlToValidate="ddlCategoria" InitialValue="" ErrorMessage="La categoría es requerida." CssClass="text-red-400 text-sm" Display="Dynamic" />
+                </div>
+            </div>
         </div>
 
         <asp:GridView ID="gvProductos" runat="server" AutoGenerateColumns="False" AllowPaging="true" PageSize="10" CssClass="grid-dark">
@@ -35,7 +79,7 @@
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Acciones">
                     <ItemTemplate>
-                        <div class="actions flex justify-center gap-4">
+                        <div class="actions flex justify-left gap-4">
                             <button aria-label="Editar producto" class="material-icons-outlined">edit</button>
                             <button aria-label="Eliminar producto" class="material-icons-outlined">delete</button>
                         </div>

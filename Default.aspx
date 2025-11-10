@@ -1,7 +1,7 @@
-﻿<%@ Page Title="Administración comercial - Bienvenida" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Comercio._Default" %>
+﻿<%@ Page Title="Gestión multriproposito - Bienvenida" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Comercio._Default" %>
 
 <asp:Content ID="TitleContent" ContentPlaceHolderID="TitleContent" runat="server">
-    Administración comercial - Bienvenida
+    Gestión multriproposito - Bienvenida
 </asp:Content>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">

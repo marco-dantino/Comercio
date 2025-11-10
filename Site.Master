@@ -32,124 +32,116 @@
     </script>
 
     <style>
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBPtcXPiQi2ffdb1LIm__rjLH6RN0fFwgioFmAOIJEtKpPGjtkTd3KJpKmYAu6koiWhHMiyLOUmHOtp9DGxO653o_hMaPN1HndXdoxAnIrQoriOiF7MoFkFG-V3ntZAs9gSOCwEzZO8gv8WRPEgrLxf78Mv1fBMmajYp8lqpgqS4_AAPhqZtF-Ezf_fmD6e2tOxDCTbXxYqJpvS66ABOy6P9sK2fKiwc2EIGs-SubgOv_d6gjnk9kWYfB-b6fEWTgnrzp2M5Ciihrh7') no-repeat center center;
+            background-size: cover;
+            opacity: 0.5;
+            z-index: -1;
+        }
+
         .material-icons {
             font-size: inherit;
         }
-       
-    /* ====== TABLA DARK SIMIL TAILWIND ====== */
-    .grid-dark {
-        width: 100%;
-        border-collapse: collapse;
-        border-radius: 0.5rem;
-        overflow: hidden;
-        background-color: #1f2937; /* surface-dark */
-        color: #f9fafb; /* text-dark */
-        font-family: 'Inter', sans-serif;
-        font-size: 0.875rem;
-        text-align: left;
-    }
 
-    .grid-dark thead {
-        background-color: #374151; /* dark:bg-gray-700 */
-        text-transform: uppercase;
-        font-size: 0.75rem;
-        letter-spacing: 0.05em;
-    }
+        .grid-dark {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            background-color: #1f2937;
+            color: #f9fafb;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            text-align: left;
+        }
 
-    .grid-dark th {
-        padding: 0.75rem 1.5rem;
-        color: #d1d5db; /* gray-300 */
-        font-weight: 600;
-        border-bottom: 1px solid #4b5563; /* gray-600 */
-    }
+        .grid-dark thead {
+            background-color: #374151;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+        }
 
-    .grid-dark td {
-        padding: 0.75rem 1.5rem;
-        border-bottom: 1px solid #374151; /* gray-700 */
-    }
+        .grid-dark th {
+            padding: 0.75rem 1.5rem;
+            color: #d1d5db;
+            font-weight: 600;
+            border-bottom: 1px solid #4b5563;
+        }
 
-    .grid-dark tr:hover {
-        background-color: #111827; /* dark:hover:bg-gray-800 */
-        transition: background-color 0.2s ease;
-    }
+        .grid-dark td {
+            padding: 0.75rem 1.5rem;
+            border-bottom: 1px solid #374151;
+        }
 
-    .grid-dark td.text-subtle {
-        color: #9ca3af; /* subtle-dark */
-    }
+        .grid-dark tr:hover {
+            background-color: #111827;
+            transition: background-color 0.2s ease;
+        }
 
-    .grid-dark .actions {
-        text-align: center;
-    }
+        .grid-dark td.text-subtle {
+            color: #9ca3af;
+        }
 
-    .grid-dark button {
-        color: #dc2626; /* primary */
-        transition: opacity 0.2s ease;
-        background: none;
-        border: none;
-        cursor: pointer;
-    }
+        .grid-dark .actions {
+            text-align: center;
+        }
 
-    .grid-dark button:hover {
-        opacity: 0.8;
-    }
+        .grid-dark button {
+            color: #dc2626;
+            transition: opacity 0.2s ease;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
 
-    /* ====== OPCIONAL: VACÍO ====== */
-    .grid-dark-empty {
-        padding: 1rem;
-        text-align: center;
-        color: #9ca3af;
-        background-color: #1f2937;
-    }
-</style>
-    
+        .grid-dark button:hover {
+            opacity: 0.8;
+        }
+    </style>
+
 </head>
 
 <body class="bg-background-dark font-display text-gray-200 antialiased">
-     <div class="flex flex-col min-h-screen">
-    <form id="form1" runat="server" class="flex flex-col min-h-screen">
-        <!-- HEADER / NAV -->
-        <header class="bg-gray-800 shadow-md">
-            <nav class="container mx-auto px-6 py-4">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center">
-                        <a class="text-white text-xl font-bold" href="AdminPage.aspx">Administración comercial</a>
-                        <div class="hidden md:flex ml-10 space-x-8">
-                            <a href="Productos.aspx" class="text-gray-300 hover:text-white transition-colors">Productos</a>
-                            <a href="Categorias.aspx" class="text-gray-300 hover:text-white transition-colors">Categorías</a>
-                            <a href="Marcas.aspx" class="text-gray-300 hover:text-white transition-colors">Marcas</a>
-                            <a href="Clientes.aspx" class="text-gray-300 hover:text-white transition-colors">Clientes</a>
-                            <a href="Proveedores.aspx" class="text-gray-300 hover:text-white transition-colors">Proveedores</a>
-                            <a href="Usuarios.aspx" class="text-gray-300 hover:text-white transition-colors">Usuarios</a>
-                            <a href="Password.aspx" class="text-gray-300 hover:text-white transition-colors">Contraseñas</a>
+    <div class="flex flex-col min-h-screen">
+        <form id="form1" runat="server" class="flex flex-col min-h-screen">
+
+            <header class="bg-gray-800 shadow-md">
+                <nav class="container mx-auto px-6 py-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <a class="text-white text-xl font-bold" href="Default.aspx">Gestión multriproposito</a>
+                            <div class="hidden md:flex ml-10 space-x-8">
+                                <a href="Productos.aspx" class="text-gray-300 hover:text-white transition-colors">Productos</a>
+                                <a href="Categorias.aspx" class="text-gray-300 hover:text-white transition-colors">Categorías</a>
+                                <a href="Marcas.aspx" class="text-gray-300 hover:text-white transition-colors">Marcas</a>
+                                <a href="Usuarios.aspx" class="text-gray-300 hover:text-white transition-colors">Usuarios</a>
+                                <a href="Clientes.aspx" class="text-gray-300 hover:text-white transition-colors">Clientes</a>
+                                <a href="Proveedores.aspx" class="text-gray-300 hover:text-white transition-colors">Proveedores</a>
+                            </div>
+                        </div>
+                        <div>
+                            <a href="Login.aspx" class="text-gray-300 hover:text-white transition-colors">Cerrar Sesión</a>
                         </div>
                     </div>
-                    <div>
-                        <a href="Login.aspx" class="text-gray-300 hover:text-white transition-colors">Cerrar Sesión</a>
-                    </div>
-                </div>
-            </nav>
-        </header>
+                </nav>
+            </header>
 
-        <!-- CONTENIDO DE PÁGINAS -->
-        
             <asp:ContentPlaceHolder ID="MainContent" runat="server" />
 
-        <!-- FOOTER -->
-        <footer class="py-4">
-            <div class="container mx-auto px-6 text-center text-gray-400">
-                <p>&copy; <%: DateTime.Now.Year %> - Mi aplicación ASP.NET</p>
-            </div>
-        </footer>
-    </form>
-         </div>
+            <footer class="py-4">
+                <div class="container mx-auto px-6 text-center text-gray-400">
+                    <p>&copy; <%: DateTime.Now.Year %> - Mi aplicación ASP.NET</p>
+                </div>
+            </footer>
+        </form>
+    </div>
 </body>
 </html>
-
-<script>
-    document.querySelectorAll("aside a").forEach(a =>
-        a.href === location.href
-            ? a.classList.add("bg-primary/20", "text-primary")
-            : a.classList.add("text-slate-600", "hover:bg-primary/10", "hover:text-primary")
-    );
-</script>
 
