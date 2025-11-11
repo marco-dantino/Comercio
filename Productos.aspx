@@ -60,7 +60,7 @@
         </div>
 
         <div class="overflow-y-auto max-h-96">
-            <asp:GridView ID="gvProductos" runat="server" AutoGenerateColumns="False" AllowPaging="true" PageSize="10" CssClass="grid-dark" ShowHeaderWhenEmpty="True" EmptyDataText="No hay Productos registrados.">
+            <asp:GridView ID="gvProductos" runat="server" AutoGenerateColumns="False" CssClass="grid-dark" ShowHeaderWhenEmpty="True" EmptyDataText="No hay Productos registrados.">
                 <Columns>
 
                     <asp:TemplateField HeaderText="Imagen">

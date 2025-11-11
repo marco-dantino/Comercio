@@ -23,7 +23,7 @@
         </div>
 
         <div class="overflow-y-auto max-h-96">
-            <asp:GridView ID="gvMarcas" runat="server" AutoGenerateColumns="False" AllowPaging="true" PageSize="10" CssClass="grid-dark" ShowHeaderWhenEmpty="True" EmptyDataText="No hay Marcas registradas.">
+            <asp:GridView ID="gvMarcas" runat="server" AutoGenerateColumns="False" CssClass="grid-dark" ShowHeaderWhenEmpty="True" EmptyDataText="No hay Marcas registradas.">
                 <Columns>
 
 
