@@ -18,7 +18,7 @@ namespace ComercioDomain
         public Marca Marca { get; set; }
         public Categoria Categoria { get; set; }
         public bool Activo { get; set; }
-        public List<Imagen> Imagenes { get; set; }
+        public string ImagenUrl { get; set; }
 
         public float PrecioVenta => PrecioCompra + (PrecioCompra * Ganancia / 100);
     }

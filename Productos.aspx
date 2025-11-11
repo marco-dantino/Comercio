@@ -61,6 +61,14 @@
 
         <asp:GridView ID="gvProductos" runat="server" AutoGenerateColumns="False" AllowPaging="true" PageSize="10" CssClass="grid-dark" ShowHeaderWhenEmpty="True" EmptyDataText="No hay Productos registrados.">
             <Columns>
+                
+                <asp:TemplateField HeaderText="Imagen">
+                    <ItemTemplate>
+                        <img src='<%# Eval("Imagen") %>' 
+                             alt="Imagen del producto" 
+                             class="h-12 w-12 object-cover rounded-md border border-gray-700" />
+                    </ItemTemplate>
+                </asp:TemplateField>
 
                 <asp:BoundField DataField="Id" HeaderText="ID" />
                 <asp:BoundField DataField="Nombre" HeaderText="Nombre" />

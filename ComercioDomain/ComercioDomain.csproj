@@ -44,7 +44,6 @@
     <Compile Include="Categoria.cs" />
     <Compile Include="Cliente.cs" />
     <Compile Include="DetalleBase.cs" />
-    <Compile Include="Imagen.cs" />
     <Compile Include="Marca.cs" />
     <Compile Include="Producto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
