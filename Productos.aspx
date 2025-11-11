@@ -59,43 +59,45 @@
             </div>
         </div>
 
-        <asp:GridView ID="gvProductos" runat="server" AutoGenerateColumns="False" AllowPaging="true" PageSize="10" CssClass="grid-dark" ShowHeaderWhenEmpty="True" EmptyDataText="No hay Productos registrados.">
-            <Columns>
-                
-                <asp:TemplateField HeaderText="Imagen">
-                    <ItemTemplate>
-                        <img src='<%# Eval("Imagen") %>' 
-                             alt="Imagen del producto" 
-                             class="h-12 w-12 object-cover rounded-md border border-gray-700" />
-                    </ItemTemplate>
-                </asp:TemplateField>
+        <div class="overflow-y-auto max-h-96">
+            <asp:GridView ID="gvProductos" runat="server" AutoGenerateColumns="False" AllowPaging="true" PageSize="10" CssClass="grid-dark" ShowHeaderWhenEmpty="True" EmptyDataText="No hay Productos registrados.">
+                <Columns>
 
-                <asp:BoundField DataField="Id" HeaderText="ID" />
-                <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
-                <asp:BoundField DataField="stock_actual" HeaderText="Stock" />
-                <asp:BoundField DataField="precio_unitario" HeaderText="Precio" />
-                <asp:BoundField DataField="ganancia" HeaderText="Ganancia" />
-                <asp:TemplateField HeaderText="Marca">
-                    <ItemTemplate>
-                        <span class="text-subtle"><%# Eval("Marca") %></span>
-                    </ItemTemplate>
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="Categoria">
-                    <ItemTemplate>
-                        <span class="text-subtle"><%# Eval("Categoria") %></span>
-                    </ItemTemplate>
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="Acciones">
-                    <ItemTemplate>
-                        <div class="actions flex justify-left gap-4">
-                            <button aria-label="Editar producto" class="material-icons-outlined">edit</button>
-                            <button aria-label="Eliminar producto" class="material-icons-outlined">delete</button>
-                        </div>
-                    </ItemTemplate>
-                </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Imagen">
+                        <ItemTemplate>
+                            <img src='<%# Eval("Imagen") %>'
+                                alt="Imagen del producto"
+                                class="h-12 w-12 object-cover rounded-md border border-gray-700" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
 
-            </Columns>
-        </asp:GridView>
+                    <asp:BoundField DataField="Id" HeaderText="ID" />
+                    <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
+                    <asp:BoundField DataField="stock_actual" HeaderText="Stock" />
+                    <asp:BoundField DataField="precio_unitario" HeaderText="Precio" />
+                    <asp:BoundField DataField="ganancia" HeaderText="Ganancia" />
+                    <asp:TemplateField HeaderText="Marca">
+                        <ItemTemplate>
+                            <span class="text-subtle"><%# Eval("Marca") %></span>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Categoria">
+                        <ItemTemplate>
+                            <span class="text-subtle"><%# Eval("Categoria") %></span>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Acciones">
+                        <ItemTemplate>
+                            <div class="actions flex justify-left gap-4">
+                                <button aria-label="Editar producto" class="material-icons-outlined">edit</button>
+                                <button aria-label="Eliminar producto" class="material-icons-outlined">delete</button>
+                            </div>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+
+                </Columns>
+            </asp:GridView>
+        </div>
         <div class="bg-[#1e1e1e] border border-gray-800 rounded-xl shadow-md overflow-hidden">
         </div>
     </main>
