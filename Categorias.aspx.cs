@@ -11,7 +11,17 @@ namespace Comercio
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                var categorias = new List<dynamic>
+                {
+                    new { Id = 1, Nombre = "Periféricos" },
+                    new { Id = 2, Nombre = "Periféricos" }
+                };
+                
+                gvCategorias.DataSource = categorias;
+                gvCategorias.DataBind();
+            }
         }
     }
 }

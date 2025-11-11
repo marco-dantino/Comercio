@@ -11,7 +11,21 @@ namespace Comercio
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            //if (!IsPostBack)
+            //{
+            //    var marcas = new List<dynamic>
+            //    {
+            //        new { Id = 1, Nombre = "Addidas" },
+            //        new { Id = 2, Nombre = "nike" },
+            //        new { Id = 3, Nombre = "Marca nose que" }
+            //    };
 
+            //    gvMarcas.DataSource = marcas;
+            //    gvMarcas.DataBind();
+            //}
+            
+                gvMarcas.DataSource = new List<Marcas>();
+                gvMarcas.DataBind();
         }
     }
 }
