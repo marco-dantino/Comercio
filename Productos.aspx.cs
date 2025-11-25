@@ -17,14 +17,9 @@ namespace Comercio
         {
             if (!IsPostBack)
             {
-                ServiceProducto service = new ServiceProducto();
-                var productos = service.listar();
-
+                cargarGrid();
                 cargarMarcas();
                 cargarCategorias();
-
-                gvProductos.DataSource = productos;
-                gvProductos.DataBind();
             }
         }
 
@@ -97,6 +92,35 @@ namespace Comercio
                 Service.agregar(newProducto);
                 lblMessage.Text = "Producto agregado exitosamente.";
                 lblMessage.CssClass = "text-success";
+            }
+        }
+        private void cargarGrid()
+        {
+            ServiceProducto service = new ServiceProducto();
+            gvProductos.DataSource = service.listar();
+            gvProductos.DataBind();
+        }
+        protected void gvProductos_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            try
+            {
+                int idProducto = Convert.ToInt32(e.CommandArgument);
+
+                if (e.CommandName == "Eliminar")
+                {
+                    ServiceProducto Service = new ServiceProducto();
+                    Service.eliminar(idProducto);
+
+                    lblMessage.Text = "Producto eliminado correctamente.";
+                    lblMessage.CssClass = "text-success";
+
+                    cargarGrid();
+                }
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = "Error: " + ex.Message;
+                lblMessage.CssClass = "text-danger";
             }
         }
     }

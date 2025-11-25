@@ -66,7 +66,7 @@
         </div>
 
         <div class="overflow-y-auto max-h-96">
-            <asp:GridView ID="gvProductos" runat="server" DataKeyNames="Id" AutoGenerateColumns="False" CssClass="grid-dark" ShowHeaderWhenEmpty="True" EmptyDataText="No hay Productos registrados.">
+            <asp:GridView ID="gvProductos" OnRowCommand="gvProductos_RowCommand" runat="server" DataKeyNames="Id" AutoGenerateColumns="False" CssClass="grid-dark" ShowHeaderWhenEmpty="True" EmptyDataText="No hay Productos registrados.">
                 <Columns>
 
                     <asp:TemplateField HeaderText="Imagen">
@@ -101,8 +101,17 @@
                     <asp:TemplateField HeaderText="Acciones">
                         <ItemTemplate>
                             <div class="actions flex justify-left gap-4">
-                                <button aria-label="Editar producto" class="material-icons-outlined">edit</button>
-                                <button aria-label="Eliminar producto" class="material-icons-outlined">delete</button>
+
+                                <!-- Botón Editar -->
+                                <asp:LinkButton ID="btnEditar" runat="server" CommandName="Editar" CommandArgument='<%# Eval("Id") %>' CausesValidation="false" CssClass="material-icons-outlined">
+                                    edit
+                                </asp:LinkButton>
+
+                                <!-- Botón Eliminar -->
+                                <asp:LinkButton ID="btnEliminar" runat="server" CommandName="Eliminar" CommandArgument='<%# Eval("Id") %>' CausesValidation="false" OnClientClick="return confirm('Estás seguro de eliminar este producto?');" CssClass="material-icons-outlined text-red-500">
+                                    delete
+                                </asp:LinkButton>
+
                             </div>
                         </ItemTemplate>
                     </asp:TemplateField>
