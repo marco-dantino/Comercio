@@ -1,7 +1,10 @@
-﻿using System;
+﻿using ComercioDomain;
+using ComercioService.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Services.Description;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using static System.Net.WebRequestMethods;
@@ -14,20 +17,86 @@ namespace Comercio
         {
             if (!IsPostBack)
             {
-                var productos = new List<dynamic>
-                {
-                    new {Imagen = "https://res.cloudinary.com/dnpxdmyhl/image/upload/v1750361574/bc_PineappleIce_trgsnn.webp", Id = 1, Nombre = "Monitor", stock_actual = 10, precio_unitario = 250000, ganancia = 20, Marca = "Samsung", Categoria = "Periféricos" },
-                    new {Imagen = "https://res.cloudinary.com/dnpxdmyhl/image/upload/v1745361787/Elfbar_Bc_20000_zl7zp7.webp", Id = 2, Nombre = "Teclado", stock_actual = 40, precio_unitario = 8000, ganancia = 15, Marca = "Logitech", Categoria = "Periféricos" },
-                    new {Imagen = "https://res.cloudinary.com/dnpxdmyhl/image/upload/v1745361787/Elfbar_Bc_20000_zl7zp7.webp", Id = 3, Nombre = "Teclado", stock_actual = 40, precio_unitario = 8000, ganancia = 15, Marca = "Logitech", Categoria = "Periféricos" },
-                    new {Imagen = "https://res.cloudinary.com/dnpxdmyhl/image/upload/v1745361787/Elfbar_Bc_20000_zl7zp7.webp", Id = 4, Nombre = "Teclado", stock_actual = 40, precio_unitario = 8000, ganancia = 15, Marca = "Logitech", Categoria = "Periféricos" },
-                    new {Imagen = "https://res.cloudinary.com/dnpxdmyhl/image/upload/v1745361787/Elfbar_Bc_20000_zl7zp7.webp", Id = 5, Nombre = "Teclado", stock_actual = 40, precio_unitario = 8000, ganancia = 15, Marca = "Logitech", Categoria = "Periféricos" },
-                    new {Imagen = "https://res.cloudinary.com/dnpxdmyhl/image/upload/v1745361787/Elfbar_Bc_20000_zl7zp7.webp", Id = 6, Nombre = "Teclado", stock_actual = 40, precio_unitario = 8000, ganancia = 15, Marca = "Logitech", Categoria = "Periféricos" },
-                    new {Imagen = "https://res.cloudinary.com/dnpxdmyhl/image/upload/v1745361787/Elfbar_Bc_20000_zl7zp7.webp", Id = 7, Nombre = "Teclado", stock_actual = 40, precio_unitario = 8000, ganancia = 15, Marca = "Logitech", Categoria = "Periféricos" },
-                    new {Imagen = "https://res.cloudinary.com/dnpxdmyhl/image/upload/v1745361787/Elfbar_Bc_20000_zl7zp7.webp", Id = 8, Nombre = "Teclado", stock_actual = 40, precio_unitario = 8000, ganancia = 15, Marca = "Logitech", Categoria = "Periféricos" }
-                };
+                ServiceProducto service = new ServiceProducto();
+                var productos = service.listar();
+
+                cargarMarcas();
+                cargarCategorias();
 
                 gvProductos.DataSource = productos;
                 gvProductos.DataBind();
+            }
+        }
+
+        private void cargarMarcas()
+        {
+            ServiceMarca Service = new ServiceMarca();
+            List<Marca> marcas = Service.listar();
+
+            ddlMarca.DataSource = marcas;
+            ddlMarca.DataTextField = "Nombre";
+            ddlMarca.DataValueField = "Id";
+            ddlMarca.DataBind();
+            ddlMarca.Items.Insert(0, new ListItem(string.Empty, "0"));
+        }
+
+        private void cargarCategorias()
+        {
+            ServiceCategoria categoriaNegocio = new ServiceCategoria();
+
+            ddlCategoria.DataSource = categoriaNegocio.listar();
+            ddlCategoria.DataTextField = "Nombre";
+            ddlCategoria.DataValueField = "Id";
+            ddlCategoria.DataBind();
+            ddlCategoria.Items.Insert(0, new ListItem(string.Empty, "0"));
+        }
+
+        protected void btnAgregaProducto_Click(object sender, EventArgs e)
+        {
+            if (ddlMarca.SelectedValue == "0")
+            {
+                rfvMarca.ErrorMessage = "Por favor, seleccione una marca válida.";
+                rfvMarca.IsValid = false;
+
+                return;
+            }
+
+            if (ddlCategoria.SelectedValue == "0")
+            {
+                rfvCategoria.ErrorMessage = "Por favor, seleccione una categoria válida.";
+                rfvCategoria.IsValid = false;
+                return;
+            }
+
+            ServiceProducto Service = new ServiceProducto();
+            Producto newProducto = new Producto
+            {
+                Nombre = txtNombreProducto.Text,
+                StockActual = int.Parse(txtStockActual.Text),
+                PrecioCompra = int.Parse(txtPrecioCompra.Text),
+                Ganancia = float.Parse(txtPorcentajeGanancia.Text),
+
+                Marca = new Marca { Id = int.Parse(ddlMarca.SelectedValue) },
+                Categoria = new Categoria { Id = int.Parse(ddlCategoria.SelectedValue) },
+
+                ImagenUrl = txtImagenUrl.Text,
+
+                Activo = true,
+            };
+
+            Producto productoActual = new Producto();
+            productoActual = Service.buscarProductoPorId(newProducto.Id);
+
+            if (productoActual.Nombre != null)
+            {
+                lblMessage.Text = "El producto ya existe.";
+                lblMessage.CssClass = "text-danger";
+            }
+            else
+            {
+                Service.agregar(newProducto);
+                lblMessage.Text = "Producto agregado exitosamente.";
+                lblMessage.CssClass = "text-success";
             }
         }
     }

@@ -373,7 +373,7 @@ namespace ComercioClient
             Proveedor pv = new Proveedor();
             Console.WriteLine("\n--- NUEVO Proveedor ---");
             Console.Write("CUIT: ");
-            pv.Cuit = long.Parse(Console.ReadLine());
+            pv.Cuit = Console.ReadLine();
             Console.Write("Nombre: ");
             pv.Nombre = Console.ReadLine();
             Console.Write("Dirección: ");
@@ -403,7 +403,7 @@ namespace ComercioClient
 
             Console.Write("Nuevo CUIT (deje vacio para mantener): ");
             string cuit = Console.ReadLine();
-            if (!string.IsNullOrEmpty(cuit)) pv.Cuit = int.Parse(cuit);
+            if (!string.IsNullOrEmpty(cuit)) pv.Cuit = cuit;
 
             Console.Write($"Nuevo nombre ({pv.Nombre}): ");
             string nom = Console.ReadLine();

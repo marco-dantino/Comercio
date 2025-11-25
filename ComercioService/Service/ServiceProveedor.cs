@@ -24,7 +24,7 @@ namespace ComercioService.Service
                 {
                     Proveedor aux = new Proveedor();
                     aux.Id = (int)datos.Reader["id"];
-                    aux.Cuit = (int)datos.Reader["cuit"];
+                    aux.Cuit = (string)datos.Reader["cuit"];
                     aux.Nombre = (string)datos.Reader["nombre"];
                     aux.Telefono = (string)datos.Reader["telefono"];
                     aux.Direccion = (string)datos.Reader["direccion"];
@@ -91,13 +91,13 @@ namespace ComercioService.Service
             }
         }
 
-        public void eliminar(int cuit)
+        public void eliminar(int id)
         {
             DataAccess datos = new DataAccess();
             try
             {
-                datos.setearConsulta("DELETE FROM PROVEEDORES WHERE cuit = @cuit");
-                datos.setearParametro("@cuit", cuit);
+                datos.setearConsulta("DELETE FROM PROVEEDORES WHERE id = @id");
+                datos.setearParametro("@id", id);
 
                 datos.ejecutarScalar();
             }

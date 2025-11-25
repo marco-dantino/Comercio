@@ -133,6 +133,41 @@ namespace ComercioService.Service
             }
         }
 
+        public Producto buscarProductoPorId(int id)
+        {
+            Producto producto = new Producto();
+            DataAccess datos = new DataAccess();
+
+            try
+            {
+                datos.setearConsulta("SELECT * FROM PRODUCTOS WHERE id = @id");
+                datos.setearParametro("@id", id);
+                datos.ejecutarLectura();
+
+                if (datos.Reader.Read())
+                {
+                    producto = new Producto();
+                    producto.Id = (int)datos.Reader["id"];
+                    producto.Nombre = datos.Reader["nombre"].ToString();
+                    producto.StockActual = (int)datos.Reader["stock_actual"];
+                    producto.PrecioCompra = (int)datos.Reader["precio_unitario"];
+                    producto.Ganancia = Convert.ToSingle(datos.Reader["porcentaje_ganancia"]);
+
+                    producto.Marca = new Marca { Id = (int)datos.Reader["marca_id"] };
+                    producto.Categoria = new Categoria { Id = (int)datos.Reader["categoria_id"] };
+
+                    producto.Activo = Convert.ToBoolean(datos.Reader["activo"]);
+                }
+
+                datos.cerrarConexion();
+                return producto;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         //public void activarProducto()
         //{
         //    DataAccess datos = new DataAccess();

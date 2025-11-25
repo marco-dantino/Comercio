@@ -44,7 +44,9 @@
     <Compile Include="Class1.cs" />
     <Compile Include="DataBase\DataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\ServiceCategoria.cs" />
     <Compile Include="Service\ServiceCliente.cs" />
+    <Compile Include="Service\ServiceMarca.cs" />
     <Compile Include="Service\ServiceProducto.cs" />
     <Compile Include="Service\ServiceProveedor.cs" />
     <Compile Include="Service\ServiceUsuario.cs" />

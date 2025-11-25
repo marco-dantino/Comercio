@@ -104,6 +104,17 @@
         .grid-dark button:hover {
             opacity: 0.8;
         }
+
+        #txtFecha::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+
+        }
+
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            cursor: pointer;
+            opacity: 0.8;
+            filter: invert(1); /* Inverts the color to white */
+        }
     </style>
 
 </head>

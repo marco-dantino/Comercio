@@ -15,6 +15,8 @@ namespace ComercioDomain
         //Precio unitario de compra (ultimo precio al que se compro) o venta (precio real + %ganancia) segun corresponda
         public float PrecioUnitario { get; set; }
         public Producto Producto { get; set; }
+
+        //validacion si es requerido
         public float Subtotal => Cantidad * PrecioUnitario;
     }
 }
