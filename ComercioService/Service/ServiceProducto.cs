@@ -133,38 +133,47 @@ namespace ComercioService.Service
             }
         }
 
-        public Producto buscarProductoPorId(int id)
+        public Producto buscarPorNombre(string nombre)
         {
-            Producto producto = new Producto();
             DataAccess datos = new DataAccess();
-
             try
             {
-                datos.setearConsulta("SELECT * FROM PRODUCTOS WHERE id = @id");
-                datos.setearParametro("@id", id);
+                datos.setearConsulta("SELECT TOP 1 * FROM PRODUCTOS WHERE nombre = @nombre");
+                datos.setearParametro("@nombre", nombre);
                 datos.ejecutarLectura();
 
                 if (datos.Reader.Read())
                 {
-                    producto = new Producto();
-                    producto.Id = (int)datos.Reader["id"];
-                    producto.Nombre = datos.Reader["nombre"].ToString();
-                    producto.StockActual = (int)datos.Reader["stock_actual"];
-                    producto.PrecioCompra = (int)datos.Reader["precio_unitario"];
-                    producto.Ganancia = Convert.ToSingle(datos.Reader["porcentaje_ganancia"]);
-
-                    producto.Marca = new Marca { Id = (int)datos.Reader["marca_id"] };
-                    producto.Categoria = new Categoria { Id = (int)datos.Reader["categoria_id"] };
-
-                    producto.Activo = Convert.ToBoolean(datos.Reader["activo"]);
+                    Producto prod = new Producto();
+                    prod.Id = (int)datos.Reader["id"];
+                    prod.Nombre = (string)datos.Reader["nombre"];
+                    return prod;
                 }
+                return null;
+            }
+            finally 
+            {
+                datos.cerrarConexion(); 
+            }
+        }
 
-                datos.cerrarConexion();
-                return producto;
+        public void agregarProveedorProducto(int idProducto, int idProveedor)
+        {
+            DataAccess datos = new DataAccess();
+            try
+            {
+                datos.setearConsulta("INSERT INTO PROVEEDOR_PRODUCTO (id_proveedor, id_producto) VALUES (@idProveedor, @idProducto)");
+                datos.setearParametro("@idProveedor", idProveedor);
+                datos.setearParametro("@idProducto", idProducto);
+                datos.ejecutarScalar();
             }
             catch (Exception ex)
             {
                 throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
             }
         }
 

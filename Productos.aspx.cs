@@ -1,12 +1,15 @@
 ﻿using ComercioDomain;
 using ComercioService.Service;
+using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.Services.Description;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using static System.Net.Mime.MediaTypeNames;
 using static System.Net.WebRequestMethods;
 
 namespace Comercio
@@ -18,8 +21,11 @@ namespace Comercio
             if (!IsPostBack)
             {
                 cargarGrid();
+
                 cargarMarcas();
                 cargarCategorias();
+
+                cargarProveedores();
             }
         }
 
@@ -46,6 +52,17 @@ namespace Comercio
             ddlCategoria.Items.Insert(0, new ListItem(string.Empty, "0"));
         }
 
+        private void cargarProveedores()
+        {
+            ServiceProveedor categoriaProveedor = new ServiceProveedor();
+
+            ddlProveedor.DataSource = categoriaProveedor.listar();
+            ddlProveedor.DataTextField = "Nombre";
+            ddlProveedor.DataValueField = "Id";
+            ddlProveedor.DataBind();
+            ddlProveedor.Items.Insert(0, new ListItem(string.Empty, "0"));
+        }
+
         protected void btnAgregaProducto_Click(object sender, EventArgs e)
         {
             if (ddlMarca.SelectedValue == "0")
@@ -64,6 +81,15 @@ namespace Comercio
             }
 
             ServiceProducto Service = new ServiceProducto();
+            Producto productoActual = Service.buscarPorNombre(txtNombreProducto.Text);
+
+            if (productoActual != null)
+            {
+                lblMenssageStatus("El producto ya existe.", "warning");
+                return;
+            }
+
+            
             Producto newProducto = new Producto
             {
                 Nombre = txtNombreProducto.Text,
@@ -78,27 +104,29 @@ namespace Comercio
 
                 Activo = true,
             };
+           
+            Service.agregar(newProducto);
+            lblMenssageStatus("Producto agregado exitosamente.");
 
-            Producto productoActual = new Producto();
-            productoActual = Service.buscarProductoPorId(newProducto.Id);
-
-            if (productoActual.Nombre != null)
-            {
-                lblMessage.Text = "El producto ya existe.";
-                lblMessage.CssClass = "text-danger";
-            }
-            else
-            {
-                Service.agregar(newProducto);
-                lblMessage.Text = "Producto agregado exitosamente.";
-                lblMessage.CssClass = "text-success";
-            }
+            cargarGrid();
+            limpiarForm();
         }
         private void cargarGrid()
         {
             ServiceProducto service = new ServiceProducto();
             gvProductos.DataSource = service.listar();
             gvProductos.DataBind();
+        }
+
+        private void limpiarForm() 
+        {
+            txtNombreProducto.Text = "";
+            txtStockActual.Text = "";
+            txtPrecioCompra.Text = "";
+            txtPorcentajeGanancia.Text = "";
+            ddlMarca.SelectedIndex = 0;
+            ddlCategoria.SelectedIndex = 0;
+            txtImagenUrl.Text = "";
         }
         protected void gvProductos_RowCommand(object sender, GridViewCommandEventArgs e)
         {
@@ -111,8 +139,7 @@ namespace Comercio
                     ServiceProducto Service = new ServiceProducto();
                     Service.eliminar(idProducto);
 
-                    lblMessage.Text = "Producto eliminado correctamente.";
-                    lblMessage.CssClass = "text-success";
+                    lblMenssageStatus("Producto eliminado correctamente.", "error");
 
                     cargarGrid();
                 }
@@ -120,8 +147,26 @@ namespace Comercio
             catch (Exception ex)
             {
                 lblMessage.Text = "Error: " + ex.Message;
-                lblMessage.CssClass = "text-danger";
             }
+        }
+
+        private void lblMenssageStatus(string mensaje, string type = "success")
+        {
+            lblMessage.Text = mensaje;
+
+            if (type == "error")
+            {
+                lblMessage.CssClass = "block mt-4 px-4 py-2 rounded-md bg-red-900 text-red-300 border border-red-700 font-medium";
+            }
+            else if (type == "warning")
+            {
+                lblMessage.CssClass = "block mt-4 px-4 py-2 rounded-md bg-yellow-900 text-yellow-300 border border-yellow-700 font-medium";
+            }
+            else
+            {
+                lblMessage.CssClass = "block mt-4 px-4 py-2 rounded-md bg-green-900 text-green-300 border border-green-700 font-medium";
+            }
+            
         }
     }
 }

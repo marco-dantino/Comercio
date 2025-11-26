@@ -9,14 +9,14 @@
     <main class="flex-grow container mx-auto px-6 py-10 flex flex-col justify-center text-center">
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-3xl font-bold">Gestión de Productos</h1>
-            <asp:Label ID="lblMessage" runat="server" CssClass="text-green-400 font-medium" />
-            <asp:Label ID="lblMessage2" runat="server" CssClass="text-red-400 font-medium" />
+            <asp:Label ID="lblMessage" runat="server" CssClass="" />
+            <asp:Label ID="lblMessage2" runat="server" CssClass="" />
             <asp:Button ID="btnAgregaProducto" runat="server" CssClass="bg-green-600 hover:bg-green-700 text-white font-semibold px-5 py-2 rounded-lg transition" OnClick="btnAgregaProducto_Click" Text="Agregar Producto" />
 
         </div>
 
         <div class="bg-[#1f2937] rounded-lg shadow-md p-6 mb-8 text-left space-y-6">
-            <div class="grid md:grid-cols-3 gap-6">
+            <div class="grid md:grid-cols-4 gap-6">
 
                 <div>
                     <label for="txtNombreProducto" class="block mb-1 font-medium">Nombre</label>
@@ -55,6 +55,12 @@
                     <label for="ddlCategoria" class="block mb-1 font-medium">Categoría</label>
                     <asp:DropDownList ID="ddlCategoria" runat="server" CssClass="w-full bg-[#111827] border border-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500 text-gray-100"></asp:DropDownList>
                     <asp:RequiredFieldValidator ID="rfvCategoria" runat="server" ControlToValidate="ddlCategoria" InitialValue="" ErrorMessage="La categoría es requerida." CssClass="text-red-400 text-sm" Display="Dynamic" />
+                </div>
+
+                <div>
+                    <label for="ddlProveedor" class="block mb-1 font-medium">Proveedor</label>
+                    <asp:DropDownList ID="ddlProveedor" runat="server" CssClass="w-full bg-[#111827] border border-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500 text-gray-100"></asp:DropDownList>
+                    <asp:RequiredFieldValidator ID="rfvProveedor" runat="server" ControlToValidate="ddlProveedor" InitialValue="" ErrorMessage="El proveedor es requerido." CssClass="text-red-400 text-sm" Display="Dynamic" />
                 </div>
 
                 <div>
