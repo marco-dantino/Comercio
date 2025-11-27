@@ -8,9 +8,9 @@
     <main class="flex-grow container mx-auto px-6 py-10 flex flex-col justify-center text-center">
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-3xl font-bold">Gestión de Productos</h1>
-            <asp:Label ID="lblMessageCat" runat="server" CssClass="text-green-400 font-medium" />
+            <asp:Label ID="lblMessage" runat="server" CssClass="text-green-400 font-medium" />
             <asp:Label ID="lblMessage2" runat="server" CssClass="text-red-400 font-medium" />
-            <asp:Button ID="btnAgregaMarca" runat="server" CssClass="bg-green-600 hover:bg-green-700 text-white font-semibold px-5 py-2 rounded-lg transition" Text="Agregar Marca" />
+            <asp:Button ID="btnAgregaMarca" runat="server" OnClick="btnAgregaMarca_Click" CssClass="bg-green-600 hover:bg-green-700 text-white font-semibold px-5 py-2 rounded-lg transition" Text="Agregar Marca" />
 
         </div>
 
@@ -23,7 +23,7 @@
         </div>
 
         <div class="overflow-y-auto max-h-96">
-            <asp:GridView ID="gvMarcas" runat="server" AutoGenerateColumns="False" CssClass="grid-dark" ShowHeaderWhenEmpty="True" EmptyDataText="No hay Marcas registradas.">
+            <asp:GridView ID="gvMarcas" runat="server" OnRowCommand="gvMarcas_RowCommand" AutoGenerateColumns="False" CssClass="grid-dark table-fixed w-full" ShowHeaderWhenEmpty="True" EmptyDataText="No hay Marcas registradas.">
                 <Columns>
 
 
@@ -33,8 +33,17 @@
                     <asp:TemplateField HeaderText="Acciones">
                         <ItemTemplate>
                             <div class="actions flex justify-left gap-4">
-                                <button aria-label="Editar producto" class="material-icons-outlined">edit</button>
-                                <button aria-label="Eliminar producto" class="material-icons-outlined">delete</button>
+
+                                <!-- Botón Editar -->
+                                <asp:LinkButton ID="btnEditar" runat="server" CommandName="Editar" CommandArgument='<%# Eval("Id") %>' CausesValidation="false" CssClass="material-icons-outlined">
+                                    edit
+                                </asp:LinkButton>
+
+                                <!-- Botón Eliminar -->
+                                <asp:LinkButton ID="btnEliminar" runat="server" CommandName="Eliminar" CommandArgument='<%# Eval("Id") %>' CausesValidation="false" OnClientClick="return confirm('Estás seguro de eliminar esta Categoria?');" CssClass="material-icons-outlined text-red-500">
+                                    delete
+                                </asp:LinkButton>
+
                             </div>
                         </ItemTemplate>
                     </asp:TemplateField>

@@ -106,6 +106,17 @@ namespace Comercio
             };
            
             Service.agregar(newProducto);
+
+            Producto productoAgregado = Service.buscarPorNombre(newProducto.Nombre);
+
+            int idProveedor = int.Parse(ddlProveedor.SelectedValue);
+
+            //Puede tener o no proveedor(? VALIDAR
+            if (idProveedor > 0)
+            {
+                Service.agregarProveedorProducto(productoAgregado.Id, idProveedor);
+            }
+
             lblMenssageStatus("Producto agregado exitosamente.");
 
             cargarGrid();
@@ -166,7 +177,6 @@ namespace Comercio
             {
                 lblMessage.CssClass = "block mt-4 px-4 py-2 rounded-md bg-green-900 text-green-300 border border-green-700 font-medium";
             }
-            
         }
     }
 }

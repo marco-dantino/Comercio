@@ -49,6 +49,7 @@
     <Compile Include="Service\ServiceMarca.cs" />
     <Compile Include="Service\ServiceProducto.cs" />
     <Compile Include="Service\ServiceProveedor.cs" />
+    <Compile Include="Service\ServiceRol.cs" />
     <Compile Include="Service\ServiceUsuario.cs" />
   </ItemGroup>
   <ItemGroup>

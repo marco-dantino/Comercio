@@ -49,12 +49,15 @@ namespace ComercioService.Service
                     if (aux.Activo == true) lista.Add(aux);
                 }
 
-                datos.cerrarConexion();
                 return lista;
             }
             catch (Exception ex)
             {
                 throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
             }
         }
 

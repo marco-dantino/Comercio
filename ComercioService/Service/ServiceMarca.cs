@@ -85,7 +85,7 @@ namespace ComercioService.Service
             DataAccess datos = new DataAccess();
             try
             {
-                datos.setearConsulta("DELETE FROM PRODUCTOS WHERE id = @id");
+                datos.setearConsulta("DELETE FROM MARCAS WHERE id = @id");
                 datos.setearParametro("@id", id);
                 datos.ejecutarScalar();
 
@@ -93,6 +93,29 @@ namespace ComercioService.Service
             catch (Exception ex)
             {
                 throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+        public Marca buscarPorNombre(string nombre)
+        {
+            DataAccess datos = new DataAccess();
+            try
+            {
+                datos.setearConsulta("SELECT TOP 1 * FROM MARCAS WHERE nombre = @nombre");
+                datos.setearParametro("@nombre", nombre);
+                datos.ejecutarLectura();
+
+                if (datos.Reader.Read())
+                {
+                    Marca marca = new Marca();
+                    marca.Id = (int)datos.Reader["id"];
+                    marca.Nombre = (string)datos.Reader["nombre"];
+                    return marca;
+                }
+                return null;
             }
             finally
             {
