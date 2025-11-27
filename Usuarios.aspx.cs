@@ -22,26 +22,43 @@ namespace Comercio
         }
         protected void gvUsuarios_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            try
+            if (e.CommandName == "Editar")
+            {
+                string nombre = e.CommandArgument.ToString();
+
+                ServiceUsuario service = new ServiceUsuario();
+                Usuario user = service.buscarPorNombre(nombre);
+
+                ViewState["IdUsuarioEdit"] = user.Id;
+
+                if (user != null)
+                {
+                    txtNombreEdit.Text = user.Nombre;
+                    txtApellidoEdit.Text = user.Apellido;
+                    txtEmailEdit.Text = user.Email;
+                    txtPasswordEdit.Text = user.Password;
+
+                    panelEditar.Visible = true;
+                }
+                else
+                {
+                    lblMenssageStatus("Usuario no encontrado.", "error");
+                }
+            }
+
+            if (e.CommandName == "Eliminar")
             {
                 int idUsuario = Convert.ToInt32(e.CommandArgument);
 
-                if (e.CommandName == "Eliminar")
-                {
-                    ServiceUsuario Service = new ServiceUsuario();
-                    Service.eliminar(idUsuario);
+                ServiceUsuario service = new ServiceUsuario();
+                service.eliminar(idUsuario);
 
-                    lblMenssageStatus("Usuario eliminado correctamente.", "error");
+                lblMenssageStatus("Usuario eliminado correctamente.", "error");
 
-                    cargarGrid();
-                }
-            }
-            catch (Exception ex)
-            {
-                lblMessage.Text = "Error: " + ex.Message;
+                cargarGrid();
             }
         }
-        protected void btnAgregaProveedor_Click(object sender, EventArgs e)
+        protected void btnAgregaUsuario_Click(object sender, EventArgs e)
         {
             Usuario user = new Usuario
             {
@@ -55,7 +72,7 @@ namespace Comercio
             ServiceUsuario service = new ServiceUsuario();
             service.agregar(user);
 
-            lblMenssageStatus("Producto agregado exitosamente.");
+            lblMenssageStatus("Usuario agregado exitosamente.");
 
             cargarGrid();
             limpiarForm();
@@ -99,6 +116,27 @@ namespace Comercio
             ddlRol.DataTextField = "RolNombre";
             ddlRol.DataValueField = "RolId";
             ddlRol.DataBind();
+        }
+
+        protected void btnGuardarUsuario_Click(object sender, EventArgs e)
+        {
+            Usuario user = new Usuario();
+            user.Id = (int)ViewState["IdUsuarioEdit"];
+
+            user.Nombre = txtNombreEdit.Text;
+            user.Apellido = txtApellidoEdit.Text;
+            user.Email = txtEmailEdit.Text;
+            user.Password = txtPasswordEdit.Text;
+            
+            ServiceUsuario service = new ServiceUsuario();
+            service.modificar(user);
+
+            lblMessage.Text = "Usuario modificado correctamente.";
+            lblMessage.CssClass = "text-green-400";
+
+            cargarGrid();
+
+            panelEditar.Visible = false;
         }
     }
 }

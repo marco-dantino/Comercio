@@ -78,13 +78,15 @@ namespace ComercioService.Service
             DataAccess datos = new DataAccess();
             try
             {
-                datos.setearConsulta("UPDATE USUARIOS SET nombre = @nombre, apellido = @apellido, email = @email, password = @password, id_rol = @idRol WHERE id = @id");
+                ///datos.setearConsulta("UPDATE USUARIOS SET nombre = @nombre, apellido = @apellido, email = @email, password = @password, id_rol = @idRol WHERE id = @id");
+                datos.setearConsulta("UPDATE USUARIOS SET nombre = @nombre, apellido = @apellido, email = @email, password = @password WHERE id = @id");
 
+                datos.setearParametro("@id", usuario.Id);
                 datos.setearParametro("@nombre", usuario.Nombre);
                 datos.setearParametro("@apellido", usuario.Apellido);
                 datos.setearParametro("@email", usuario.Email);
                 datos.setearParametro("@password", usuario.Password);
-                datos.setearParametro("@id_rol", usuario.Rol.RolId);
+                //datos.setearParametro("@id_rol", usuario.Rol.RolId);
 
                 datos.ejecutarScalar();
             }
@@ -132,6 +134,9 @@ namespace ComercioService.Service
                     Usuario user = new Usuario();
                     user.Id = (int)datos.Reader["id"];
                     user.Nombre = (string)datos.Reader["nombre"];
+                    user.Apellido = (string)datos.Reader["apellido"];
+                    user.Email = (string)datos.Reader["email"];
+                    user.Password = (string)datos.Reader["password"];
 
                     return user;
                 }

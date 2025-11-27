@@ -10,7 +10,7 @@
             <h1 class="text-3xl font-bold">Gestión de Usuarios</h1>
             <asp:Label ID="lblMessage" runat="server" CssClass="text-green-400 font-medium" />
             <asp:Label ID="lblMessage2" runat="server" CssClass="text-red-400 font-medium" />
-            <asp:Button ID="btnAgregaProveedor" runat="server" OnClick="btnAgregaProveedor_Click" CssClass="bg-green-600 hover:bg-green-700 text-white font-semibold px-5 py-2 rounded-lg transition" Text="Agregar Proveedor" />
+            <asp:Button ID="btnAgregaUsuario" runat="server" OnClick="btnAgregaUsuario_Click" CssClass="bg-green-600 hover:bg-green-700 text-white font-semibold px-5 py-2 rounded-lg transition" Text="Agregar Usuario" />
 
         </div>
 
@@ -52,6 +52,17 @@
             </div>
         </div>
 
+        <asp:Panel ID="panelEditar" runat="server" CssClass="p-4 bg-gray-900 rounded-lg shadow-md" Visible="false">
+            <h3 class="text-lg font-semibold mb-3">Editar Usuario</h3>
+
+            <asp:TextBox ID="txtNombreEdit" runat="server" CssClass="text-black" />
+            <asp:TextBox ID="txtApellidoEdit" runat="server" CssClass="text-black" />
+            <asp:TextBox ID="txtEmailEdit" runat="server" CssClass="text-black" />
+            <asp:TextBox ID="txtPasswordEdit" runat="server" CssClass="text-black" />
+
+            <asp:Button ID="btnGuardarUsuario" runat="server" CausesValidation="false" Text="Guardar cambios" OnClick="btnGuardarUsuario_Click" CssClass="btn-primary mt-4" />
+        </asp:Panel>
+
         <div class="overflow-y-auto max-h-96">
             <asp:GridView ID="gvUsuarios" runat="server" OnRowCommand="gvUsuarios_RowCommand" AutoGenerateColumns="False" CssClass="grid-dark" ShowHeaderWhenEmpty="True" EmptyDataText="No hay Proveedors registrados.">
                 <Columns>
@@ -67,7 +78,7 @@
                             <div class="actions flex justify-left gap-4">
 
                                 <!-- Botón Editar -->
-                                <asp:LinkButton ID="btnEditar" runat="server" CommandName="Editar" CommandArgument='<%# Eval("Id") %>' CausesValidation="false" CssClass="material-icons-outlined">
+                                <asp:LinkButton ID="btnEditar" runat="server" CommandName="Editar" CommandArgument='<%# Eval("Nombre") %>' CausesValidation="false" CssClass="material-icons-outlined">
                                     edit
                                 </asp:LinkButton>
 
