@@ -52,15 +52,20 @@
             </div>
         </div>
 
-        <asp:Panel ID="panelEditar" runat="server" CssClass="p-4 bg-gray-900 rounded-lg shadow-md" Visible="false">
-            <h3 class="text-lg font-semibold mb-3">Editar Usuario</h3>
+        <asp:Panel ID="panelEdit" runat="server" CssClass="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-40" Visible="false">
+            <div class="bg-gray-900 p-6 rounded-lg shadow-xl w-full max-w-md relative z-50">
+                <h3 class="text-xl font-semibold mb-4 text-white">Editar Usuario</h3>
 
-            <asp:TextBox ID="txtNombreEdit" runat="server" CssClass="text-black" />
-            <asp:TextBox ID="txtApellidoEdit" runat="server" CssClass="text-black" />
-            <asp:TextBox ID="txtEmailEdit" runat="server" CssClass="text-black" />
-            <asp:TextBox ID="txtPasswordEdit" runat="server" CssClass="text-black" />
+                <asp:TextBox ID="txtNombreEdit" runat="server" CssClass="w-full mb-3 p-2 rounded text-black" />
+                <asp:TextBox ID="txtApellidoEdit" runat="server" CssClass="w-full mb-3 p-2 rounded text-black" />
+                <asp:TextBox ID="txtEmailEdit" runat="server" CssClass="w-full mb-3 p-2 rounded text-black" />
+                <asp:TextBox ID="txtPasswordEdit" runat="server" CssClass="w-full mb-3 p-2 rounded text-black" />
 
-            <asp:Button ID="btnGuardarUsuario" runat="server" CausesValidation="false" Text="Guardar cambios" OnClick="btnGuardarUsuario_Click" CssClass="btn-primary mt-4" />
+                <div class="flex justify-end gap-3 mt-4">
+                    <asp:Button ID="btnCerrarModal" runat="server" Text="Cancelar" CssClass="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded" CausesValidation="false" OnClick="btnCerrarModal_Click" />
+                    <asp:Button ID="btnGuardarUsuario" runat="server" Text="Guardar cambios" CssClass="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded" CausesValidation="false" OnClick="btnGuardarUsuario_Click" />
+                </div>
+            </div>
         </asp:Panel>
 
         <div class="overflow-y-auto max-h-96">

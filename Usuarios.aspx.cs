@@ -38,7 +38,7 @@ namespace Comercio
                     txtEmailEdit.Text = user.Email;
                     txtPasswordEdit.Text = user.Password;
 
-                    panelEditar.Visible = true;
+                    panelEdit.Visible = true;
                 }
                 else
                 {
@@ -131,12 +131,16 @@ namespace Comercio
             ServiceUsuario service = new ServiceUsuario();
             service.modificar(user);
 
-            lblMessage.Text = "Usuario modificado correctamente.";
-            lblMessage.CssClass = "text-green-400";
+            lblMenssageStatus("Usuario modificado correctamente.");
 
             cargarGrid();
 
-            panelEditar.Visible = false;
+            panelEdit.Visible = false;
+        }
+
+        protected void btnCerrarModal_Click(object sender, EventArgs e)
+        {
+            panelEdit.Visible = false;
         }
     }
 }
