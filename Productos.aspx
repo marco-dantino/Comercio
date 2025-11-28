@@ -9,14 +9,14 @@
     <main class="flex-grow container mx-auto px-6 py-10 flex flex-col justify-center text-center">
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-3xl font-bold">Gestión de Productos</h1>
-            <asp:Label ID="lblMessage" runat="server" CssClass="text-green-400 font-medium" />
-            <asp:Label ID="lblMessage2" runat="server" CssClass="text-red-400 font-medium" />
-            <asp:Button ID="btnAgregaProducto" runat="server" CssClass="bg-green-600 hover:bg-green-700 text-white font-semibold px-5 py-2 rounded-lg transition" Text="Agregar Producto" />
+            <asp:Label ID="lblMessage" runat="server" CssClass="" />
+            <asp:Label ID="lblMessage2" runat="server" CssClass="" />
+            <asp:Button ID="btnAgregaProducto" runat="server" CssClass="bg-green-600 hover:bg-green-700 text-white font-semibold px-5 py-2 rounded-lg transition" OnClick="btnAgregaProducto_Click" Text="Agregar Producto" />
 
         </div>
 
         <div class="bg-[#1f2937] rounded-lg shadow-md p-6 mb-8 text-left space-y-6">
-            <div class="grid md:grid-cols-3 gap-6">
+            <div class="grid md:grid-cols-4 gap-6">
 
                 <div>
                     <label for="txtNombreProducto" class="block mb-1 font-medium">Nombre</label>
@@ -32,10 +32,10 @@
                 </div>
 
                 <div>
-                    <label for="txtPrecioUnitario" class="block mb-1 font-medium">Precio Unitario</label>
-                    <asp:TextBox ID="txtPrecioUnitario" runat="server" CssClass="w-full bg-[#111827] border border-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500" />
-                    <asp:RequiredFieldValidator ID="rfvPrecioUnitario" runat="server" ControlToValidate="txtPrecioUnitario" ErrorMessage="El precio unitario es obligatorio." CssClass="text-red-400 text-sm" Display="Dynamic" />
-                    <asp:RegularExpressionValidator ID="revPrecioUnitario" runat="server" ControlToValidate="txtPrecioUnitario" ErrorMessage="Debe ser un número válido." CssClass="text-red-400 text-sm" Display="Dynamic" ValidationExpression="^\d+(\.\d{1,2})?$" />
+                    <label for="txtPrecioCompra" class="block mb-1 font-medium">Precio Compra</label>
+                    <asp:TextBox ID="txtPrecioCompra" runat="server" CssClass="w-full bg-[#111827] border border-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500" />
+                    <asp:RequiredFieldValidator ID="rfvPrecioCompra" runat="server" ControlToValidate="txtPrecioCompra" ErrorMessage="El precio de compra es obligatorio." CssClass="text-red-400 text-sm" Display="Dynamic" />
+                    <asp:RegularExpressionValidator ID="revPrecioCompra" runat="server" ControlToValidate="txtPrecioCompra" ErrorMessage="Debe ser un número válido." CssClass="text-red-400 text-sm" Display="Dynamic" ValidationExpression="^\d+(\.\d{1,2})?$" />
                 </div>
 
                 <div>
@@ -48,7 +48,7 @@
                 <div>
                     <label for="ddlMarca" class="block mb-1 font-medium">Marca</label>
                     <asp:DropDownList ID="ddlMarca" runat="server" CssClass="w-full bg-[#111827] border border-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500 text-gray-100"></asp:DropDownList>
-                    <asp:RequiredFieldValidator ID="rfvMarca" runat="server" ControlToValidate="ddlMarca" InitialValue="" ErrorMessage="La marca es requerida." CssClass="text-red-400 text-sm" Display="Dynamic" />
+                    <asp:RequiredFieldValidator ID="rfvMarca" runat="server" ControlToValidate="ddlMarca" InitialValue="0" ErrorMessage="La marca es requerida." CssClass="text-red-400 text-sm" Display="Dynamic" />
                 </div>
 
                 <div>
@@ -56,41 +56,98 @@
                     <asp:DropDownList ID="ddlCategoria" runat="server" CssClass="w-full bg-[#111827] border border-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500 text-gray-100"></asp:DropDownList>
                     <asp:RequiredFieldValidator ID="rfvCategoria" runat="server" ControlToValidate="ddlCategoria" InitialValue="" ErrorMessage="La categoría es requerida." CssClass="text-red-400 text-sm" Display="Dynamic" />
                 </div>
+
+                <div>
+                    <label for="ddlProveedor" class="block mb-1 font-medium">Proveedor</label>
+                    <asp:DropDownList ID="ddlProveedor" runat="server" CssClass="w-full bg-[#111827] border border-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500 text-gray-100"></asp:DropDownList>
+                    <asp:RequiredFieldValidator ID="rfvProveedor" runat="server" ControlToValidate="ddlProveedor" InitialValue="" ErrorMessage="El proveedor es requerido." CssClass="text-red-400 text-sm" Display="Dynamic" />
+                </div>
+
+                <div>
+                    <label for="txtImagenUrl" class="block mb-1 font-medium">URL Imagen</label>
+                    <asp:TextBox ID="txtImagenUrl" runat="server" CssClass="w-full bg-[#111827] border border-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500" />
+                    <asp:RequiredFieldValidator ID="ddlImagenUrl" runat="server" ControlToValidate="txtImagenUrl" ErrorMessage="La Imagen es obligatoria" CssClass="text-red-400 text-sm" Display="Dynamic" />
+                </div>
             </div>
         </div>
 
+        <asp:Panel ID="panelEdit" runat="server" CssClass="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-40" Visible="false">
+            <div class="bg-gray-900 p-6 rounded-lg shadow-xl w-full max-w-md relative z-50">
+                <h3 class="text-xl font-semibold mb-4 text-white">Editar Producto</h3>
+
+
+                <label for="txtNombreEdit">Nombre</label>
+                <asp:TextBox ID="txtNombreEdit" runat="server" CssClass="w-full mb-3 p-2 rounded text-black" />
+                <label for="txtStockActualEdit">Stock Actual</label>
+                <asp:TextBox ID="txtStockActualEdit" runat="server" CssClass="w-full mb-3 p-2 rounded text-black" />
+                <label for="txtPrecioCompraEdit">Precio Compra</label>
+                <asp:TextBox ID="txtPrecioCompraEdit" runat="server" CssClass="w-full mb-3 p-2 rounded text-black" />
+                <label for="txtPorcentajeGananciaEdit">Ganancia</label>
+                <asp:TextBox ID="txtPorcentajeGananciaEdit" runat="server" CssClass="w-full mb-3 p-2 rounded text-black" />
+                <label for="txtImagenUrlEdit">URL Imagen</label>
+                <asp:TextBox ID="txtImagenUrlEdit" runat="server" CssClass="w-full mb-3 p-2 rounded text-black" />
+
+                <label for="ddlMarcaEdit">Marca</label>
+                <asp:DropDownList ID="ddlMarcaEdit" runat="server" CssClass="w-full mb-3 p-2 rounded text-black"></asp:DropDownList>
+                <label for="ddlCategoriaEdit">Categoría</label>
+                <asp:DropDownList ID="ddlCategoriaEdit" runat="server" CssClass="w-full mb-3 p-2 rounded text-black"></asp:DropDownList>
+                <label for="ddlProveedorEdit">Proveedor</label>
+                <asp:DropDownList ID="ddlProveedorEdit" runat="server" CssClass="w-full mb-3 p-2 rounded text-black"></asp:DropDownList>
+
+                <div class="flex justify-end gap-3 mt-4">
+                    <asp:Button ID="btnCerrarModal" runat="server" Text="Cancelar" CssClass="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded" CausesValidation="false" OnClick="btnCerrarModal_Click" />
+                    <asp:Button ID="btnGuardarProducto" runat="server" Text="Guardar cambios" CssClass="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded" CausesValidation="false" OnClick="btnGuardarProducto_Click" />
+                </div>
+            </div>
+        </asp:Panel>
+
         <div class="overflow-y-auto max-h-96">
-            <asp:GridView ID="gvProductos" runat="server" AutoGenerateColumns="False" CssClass="grid-dark" ShowHeaderWhenEmpty="True" EmptyDataText="No hay Productos registrados.">
+            <asp:GridView ID="gvProductos" OnRowCommand="gvProductos_RowCommand" runat="server" DataKeyNames="Id" AutoGenerateColumns="False" CssClass="grid-dark" ShowHeaderWhenEmpty="True" EmptyDataText="No hay Productos registrados.">
                 <Columns>
 
                     <asp:TemplateField HeaderText="Imagen">
                         <ItemTemplate>
-                            <img src='<%# Eval("Imagen") %>'
+                            <img src='<%# Eval("ImagenUrl") %>'
                                 alt="Imagen del producto"
                                 class="h-12 w-12 object-cover rounded-md border border-gray-700" />
                         </ItemTemplate>
                     </asp:TemplateField>
 
-                    <asp:BoundField DataField="Id" HeaderText="ID" />
                     <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
-                    <asp:BoundField DataField="stock_actual" HeaderText="Stock" />
-                    <asp:BoundField DataField="precio_unitario" HeaderText="Precio" />
-                    <asp:BoundField DataField="ganancia" HeaderText="Ganancia" />
+                    <asp:BoundField DataField="StockActual" HeaderText="Stock" />
+                    <asp:BoundField DataField="PrecioCompra" HeaderText="Precio Compra" />
+                    <asp:BoundField DataField="PrecioVenta" HeaderText="Precio Venta" />
+
+                    <asp:TemplateField HeaderText="Ganancia">
+                        <ItemTemplate>
+                            <span class="text-subtle"> <%# Eval("Ganancia") %>% </span>
+                        </ItemTemplate>
+                    </asp:TemplateField>
                     <asp:TemplateField HeaderText="Marca">
                         <ItemTemplate>
-                            <span class="text-subtle"><%# Eval("Marca") %></span>
+                            <span class="text-subtle"><%# Eval("Marca.Nombre") %></span>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Categoria">
                         <ItemTemplate>
-                            <span class="text-subtle"><%# Eval("Categoria") %></span>
+                            <span class="text-subtle"><%# Eval("Categoria.Nombre") %></span>
                         </ItemTemplate>
                     </asp:TemplateField>
+
                     <asp:TemplateField HeaderText="Acciones">
                         <ItemTemplate>
                             <div class="actions flex justify-left gap-4">
-                                <button aria-label="Editar producto" class="material-icons-outlined">edit</button>
-                                <button aria-label="Eliminar producto" class="material-icons-outlined">delete</button>
+
+                                <!-- Botón Editar -->
+                                <asp:LinkButton ID="btnEditar" runat="server" CommandName="Editar" CommandArgument='<%# Eval("Id") %>' CausesValidation="false" CssClass="material-icons-outlined">
+                                    edit
+                                </asp:LinkButton>
+
+                                <!-- Botón Eliminar -->
+                                <asp:LinkButton ID="btnEliminar" runat="server" CommandName="Eliminar" CommandArgument='<%# Eval("Id") %>' CausesValidation="false" OnClientClick="return confirm('Estás seguro de eliminar este producto?');" CssClass="material-icons-outlined text-red-500">
+                                    delete
+                                </asp:LinkButton>
+
                             </div>
                         </ItemTemplate>
                     </asp:TemplateField>

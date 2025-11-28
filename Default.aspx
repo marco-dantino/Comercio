@@ -9,7 +9,7 @@
     <div class="max-w-7xl mx-auto text-center">
         <h2 class="text-3xl sm:text-4xl font-semibold text-slate-300 mb-12">Bienvenido de nuevo</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-            <a class="group block p-6 sm:p-8 bg-gray-800 border border-slate-800 rounded-lg shadow-sm" href="#">
+            <a class="group block p-6 sm:p-8 bg-gray-800 border border-slate-800 rounded-lg shadow-sm" href="GestionarCompra.aspx">
                 <div class="flex justify-center mb-4">
                     <span class="material-icons-outlined text-primary text-5xl sm:text-6xl">shopping_cart
                     </span>

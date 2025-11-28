@@ -1,4 +1,7 @@
-﻿using System;
+﻿using ComercioDomain;
+using ComercioService.DataBase;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,10 +9,12 @@ using System.Threading.Tasks;
 
 namespace ComercioService.Service
 {
+
+    /// <summary>
+    /// Hacer funcion, de activo y no activo.
+    /// </summary>
     public class ServiceProducto
     {
-<<<<<<< Updated upstream
-=======
         public List<Producto> listar()
         {
             List<Producto> lista = new List<Producto>();
@@ -286,6 +291,5 @@ namespace ComercioService.Service
         //        datos.cerrarConexion();
         //    }
         //}
->>>>>>> Stashed changes
     }
 }

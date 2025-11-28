@@ -8,9 +8,9 @@
     <main class="flex-grow container mx-auto px-6 py-10 flex flex-col justify-center text-center">
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-3xl font-bold">Gestión de Productos</h1>
-            <asp:Label ID="lblMessageCat" runat="server" CssClass="text-green-400 font-medium" />
+            <asp:Label ID="lblMessage" runat="server" CssClass="text-green-400 font-medium" />
             <asp:Label ID="lblMessage2" runat="server" CssClass="text-red-400 font-medium" />
-            <asp:Button ID="btnAgregaMarca" runat="server" CssClass="bg-green-600 hover:bg-green-700 text-white font-semibold px-5 py-2 rounded-lg transition" Text="Agregar Marca" />
+            <asp:Button ID="btnAgregaMarca" runat="server" OnClick="btnAgregaMarca_Click" CssClass="bg-green-600 hover:bg-green-700 text-white font-semibold px-5 py-2 rounded-lg transition" Text="Agregar Marca" />
 
         </div>
 
@@ -22,8 +22,22 @@
             </div>
         </div>
 
+        <asp:Panel ID="panelEdit" runat="server" CssClass="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-40" Visible="false">
+            <div class="bg-gray-900 p-6 rounded-lg shadow-xl w-full max-w-md relative z-50">
+                <h3 class="text-xl font-semibold mb-4 text-white">Editar Marca</h3>
+
+                <label for="txtNombreEdit">Nombre</label>
+                <asp:TextBox ID="txtNombreEdit" runat="server" CssClass="w-full mb-3 p-2 rounded text-black" />
+
+                <div class="flex justify-end gap-3 mt-4">
+                    <asp:Button ID="btnCerrarModal" runat="server" Text="Cancelar" CssClass="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded" CausesValidation="false" OnClick="btnCerrarModal_Click" />
+                    <asp:Button ID="btnGuardarMarca" runat="server" Text="Guardar cambios" CssClass="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded" CausesValidation="false" OnClick="btnGuardarMarca_Click" />
+                </div>
+            </div>
+        </asp:Panel>
+
         <div class="overflow-y-auto max-h-96">
-            <asp:GridView ID="gvMarcas" runat="server" AutoGenerateColumns="False" CssClass="grid-dark" ShowHeaderWhenEmpty="True" EmptyDataText="No hay Marcas registradas.">
+            <asp:GridView ID="gvMarcas" runat="server" OnRowCommand="gvMarcas_RowCommand" AutoGenerateColumns="False" CssClass="grid-dark table-fixed w-full" ShowHeaderWhenEmpty="True" EmptyDataText="No hay Marcas registradas.">
                 <Columns>
 
 
@@ -33,8 +47,17 @@
                     <asp:TemplateField HeaderText="Acciones">
                         <ItemTemplate>
                             <div class="actions flex justify-left gap-4">
-                                <button aria-label="Editar producto" class="material-icons-outlined">edit</button>
-                                <button aria-label="Eliminar producto" class="material-icons-outlined">delete</button>
+
+                                <!-- Botón Editar -->
+                                <asp:LinkButton ID="btnEditar" runat="server" CommandName="Editar" CommandArgument='<%# Eval("Id") %>' CausesValidation="false" CssClass="material-icons-outlined">
+                                    edit
+                                </asp:LinkButton>
+
+                                <!-- Botón Eliminar -->
+                                <asp:LinkButton ID="btnEliminar" runat="server" CommandName="Eliminar" CommandArgument='<%# Eval("Id") %>' CausesValidation="false" OnClientClick="return confirm('Estás seguro de eliminar esta Categoria?');" CssClass="material-icons-outlined text-red-500">
+                                    delete
+                                </asp:LinkButton>
+
                             </div>
                         </ItemTemplate>
                     </asp:TemplateField>
