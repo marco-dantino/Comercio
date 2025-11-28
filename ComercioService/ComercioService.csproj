@@ -47,7 +47,6 @@
     <Compile Include="Service\ServiceCategoria.cs" />
     <Compile Include="Service\ServiceCliente.cs" />
     <Compile Include="Service\ServiceCompra.cs" />
-    <Compile Include="Service\ServiceDetalleCompra.cs" />
     <Compile Include="Service\ServiceMarca.cs" />
     <Compile Include="Service\ServiceProducto.cs" />
     <Compile Include="Service\ServiceProveedor.cs" />
