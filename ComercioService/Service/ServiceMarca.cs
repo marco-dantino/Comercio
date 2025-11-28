@@ -122,5 +122,30 @@ namespace ComercioService.Service
                 datos.cerrarConexion();
             }
         }
+        public Marca buscarPorId(int id)
+        {
+            DataAccess datos = new DataAccess();
+            try
+            {
+                datos.setearConsulta("SELECT TOP 1 * FROM MARCAS WHERE id = @id");
+                datos.setearParametro("@id", id);
+                datos.ejecutarLectura();
+
+                if (datos.Reader.Read())
+                {
+                    Marca marca = new Marca();
+                    marca.Id = (int)datos.Reader["id"];
+                    marca.Nombre = (string)datos.Reader["nombre"];
+
+                    return marca;
+                }
+
+                return null;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }

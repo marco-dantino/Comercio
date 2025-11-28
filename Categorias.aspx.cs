@@ -32,24 +32,38 @@ namespace Comercio
 
         protected void gvCategorias_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            try
+            int idCategoria = int.Parse(e.CommandArgument.ToString());
+            ServiceCategoria Service = new ServiceCategoria();
+
+            if (e.CommandName == "Editar")
             {
-                int idCategoria = Convert.ToInt32(e.CommandArgument);
+                Categoria categoria = Service.buscarPorId(idCategoria);
 
-                if (e.CommandName == "Eliminar")
+                ViewState["IdCategoriaEdit"] = categoria.Id;
+
+                if (categoria != null)
                 {
-                    ServiceCategoria Service = new ServiceCategoria();
-                    Service.eliminar(idCategoria);
+                    txtNombreEdit.Text = categoria.Nombre;
 
-                    lblMenssageStatus("Categoria eliminada correctamente.", "error");
-
-                    cargarGrid();
+                    panelEdit.Visible = true;
+                }
+                else
+                {
+                    lblMenssageStatus("Categoria no encontrada.", "error");
                 }
             }
-            catch (Exception ex)
-            {
-                lblMessage.Text = "Error: " + ex.Message;
+
+            if (e.CommandName == "Eliminar")
+            {    
+                Service.eliminar(idCategoria);
+
+                lblMenssageStatus("Categoria eliminada correctamente.", "error");
+
+                cargarGrid();
             }
+
+
+
         }
 
         private void lblMenssageStatus(string mensaje, string type = "success")
@@ -86,6 +100,27 @@ namespace Comercio
 
             cargarGrid();
             limpiarForm();
+        }
+
+        protected void btnGuardarCategoria_Click(object sender, EventArgs e)
+        {
+            Categoria categoria = new Categoria();
+
+            categoria.Nombre = txtNombreEdit.Text;
+
+            ServiceCategoria Service = new ServiceCategoria();
+            Service.modificar(int.Parse(ViewState["IdCategoriaEdit"].ToString()), categoria.Nombre);
+
+            lblMenssageStatus("Categoria modificada correctamente.");
+
+            cargarGrid();
+
+            panelEdit.Visible = false;
+        }
+
+        protected void btnCerrarModal_Click(object sender, EventArgs e)
+        {
+            panelEdit.Visible = false;
         }
     }
 }

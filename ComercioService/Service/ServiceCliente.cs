@@ -72,7 +72,8 @@ namespace ComercioService.Service
             DataAccess datos = new DataAccess();
             try
             {
-                datos.setearConsulta("UPDATE CLIENTES SET nombre = @nombre, direccion = @direccion, telefono = @telefono, email = @email, dni = @dni, activo = @activo where id = @id");
+                datos.setearConsulta("UPDATE CLIENTES SET dni = @dni, nombre = @nombre, direccion = @direccion, telefono = @telefono, email = @email, activo = @activo where id = @id");
+                datos.setearParametro("@id", cliente.Id);
                 datos.setearParametro("@dni", cliente.Dni);
                 datos.setearParametro("@nombre", cliente.Nombre);
                 datos.setearParametro("@direccion", cliente.Direccion);
@@ -104,6 +105,59 @@ namespace ComercioService.Service
             catch (Exception ex)
             {
                 throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+        public Cliente buscarPorDni(int dni)
+        {
+            DataAccess datos = new DataAccess();
+            try
+            {
+                datos.setearConsulta("SELECT TOP 1 * FROM CLIENTES WHERE dni = @dni");
+                datos.setearParametro("@dni", dni);
+                datos.ejecutarLectura();
+
+                if (datos.Reader.Read())
+                {
+                    Cliente client = new Cliente();
+                    client.Id = (int)datos.Reader["id"];
+                    client.Dni = (int)datos.Reader["dni"];
+
+                    return client;
+                }
+                return null;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+        public Cliente buscarPorId(int id)
+        {
+            DataAccess datos = new DataAccess();
+            try
+            {
+                datos.setearConsulta("SELECT TOP 1 * FROM CLIENTES WHERE id = @id");
+                datos.setearParametro("@id", id);
+                datos.ejecutarLectura();
+
+                if (datos.Reader.Read())
+                {
+                    Cliente client = new Cliente();
+                    client.Id = (int)datos.Reader["id"];
+                    client.Dni = (int)datos.Reader["dni"];
+                    client.Nombre = (string)datos.Reader["nombre"];
+                    client.Telefono = (string)datos.Reader["telefono"];
+                    client.Direccion = (string)datos.Reader["direccion"];
+                    client.Email = (string)datos.Reader["email"];
+
+                    return client;
+                }
+
+                return null;
             }
             finally
             {

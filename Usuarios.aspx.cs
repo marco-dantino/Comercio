@@ -22,12 +22,12 @@ namespace Comercio
         }
         protected void gvUsuarios_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            int idUsuario = int.Parse(e.CommandArgument.ToString());
+            ServiceUsuario service = new ServiceUsuario();
+
             if (e.CommandName == "Editar")
             {
-                string nombre = e.CommandArgument.ToString();
-
-                ServiceUsuario service = new ServiceUsuario();
-                Usuario user = service.buscarPorNombre(nombre);
+                Usuario user = service.buscarPorId(idUsuario);
 
                 ViewState["IdUsuarioEdit"] = user.Id;
 
@@ -48,9 +48,6 @@ namespace Comercio
 
             if (e.CommandName == "Eliminar")
             {
-                int idUsuario = Convert.ToInt32(e.CommandArgument);
-
-                ServiceUsuario service = new ServiceUsuario();
                 service.eliminar(idUsuario);
 
                 lblMenssageStatus("Usuario eliminado correctamente.", "error");

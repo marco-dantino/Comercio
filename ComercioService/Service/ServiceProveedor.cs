@@ -67,18 +67,19 @@ namespace ComercioService.Service
             }
         }
 
-        public void modificar(Proveedor cliente)
+        public void modificar(Proveedor proveedor)
         {
             DataAccess datos = new DataAccess();
             try
             {
-                datos.setearConsulta("UPDATE PROVEEDORES SET cuit = @cuit, nombre = @nombre, direccion = @direccion, telefono = @telefono, email = @email, activo = @activo where cuit = @cuit");
-                datos.setearParametro("@cuit", cliente.Cuit);
-                datos.setearParametro("@nombre", cliente.Nombre);
-                datos.setearParametro("@direccion", cliente.Direccion);
-                datos.setearParametro("@telefono", cliente.Telefono);
-                datos.setearParametro("@email", cliente.Email);
-                datos.setearParametro("@activo", cliente.Activo);
+                datos.setearConsulta("UPDATE PROVEEDORES SET cuit = @cuit, nombre = @nombre, direccion = @direccion, telefono = @telefono, email = @email, activo = @activo WHERE id = @id");
+                datos.setearParametro("@id", proveedor.Id);
+                datos.setearParametro("@cuit", proveedor.Cuit);
+                datos.setearParametro("@nombre", proveedor.Nombre);
+                datos.setearParametro("@direccion", proveedor.Direccion);
+                datos.setearParametro("@telefono", proveedor.Telefono);
+                datos.setearParametro("@email", proveedor.Email);
+                datos.setearParametro("@activo", proveedor.Activo);
                 datos.ejecutarScalar();
             }
             catch (Exception ex)
@@ -104,6 +105,36 @@ namespace ComercioService.Service
             catch (Exception ex)
             {
                 throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public Proveedor buscarPorId(int id)
+        {
+            DataAccess datos = new DataAccess();
+            try
+            {
+                datos.setearConsulta("SELECT TOP 1 * FROM PROVEEDORES WHERE id = @id");
+                datos.setearParametro("@id", id);
+                datos.ejecutarLectura();
+
+                if (datos.Reader.Read())
+                {
+                    Proveedor prov = new Proveedor();
+                    prov.Id = (int)datos.Reader["id"];
+                    prov.Cuit = (string)datos.Reader["cuit"];
+                    prov.Nombre = (string)datos.Reader["nombre"];
+                    prov.Telefono = (string)datos.Reader["telefono"];
+                    prov.Direccion = (string)datos.Reader["direccion"];
+                    prov.Email = (string)datos.Reader["email"];
+
+                    return prov;
+                }
+
+                return null;
             }
             finally
             {

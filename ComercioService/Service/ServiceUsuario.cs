@@ -119,14 +119,13 @@ namespace ComercioService.Service
                 datos.cerrarConexion();
             }
         }
-
-        public Usuario buscarPorNombre(string nombre)
+        public Usuario buscarPorId(int id)
         {
             DataAccess datos = new DataAccess();
             try
             {
-                datos.setearConsulta("SELECT TOP 1 * FROM USUARIOS WHERE nombre = @nombre");
-                datos.setearParametro("@nombre", nombre);
+                datos.setearConsulta("SELECT TOP 1 * FROM USUARIOS WHERE id = @id");
+                datos.setearParametro("@id", id);
                 datos.ejecutarLectura();
 
                 if (datos.Reader.Read())
@@ -140,6 +139,7 @@ namespace ComercioService.Service
 
                     return user;
                 }
+
                 return null;
             }
             finally

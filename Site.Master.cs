@@ -16,7 +16,7 @@ namespace Comercio
             //ID de los a para cuando la session en User o ADM cambiar visibilidad,
             //Pero la visibilidad no garantiza la seguridad de ingreso de ruta.
             ///Antes de cargar la pagina que usuario o Adm intenta acceder, validar rol.
-            LinkProducts.Visible = false;
+            //LinkProducts.Visible = false;
         }
     }
 }

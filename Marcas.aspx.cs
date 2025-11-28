@@ -21,23 +21,34 @@ namespace Comercio
 
         protected void gvMarcas_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            try
+            int idMarca = int.Parse(e.CommandArgument.ToString());
+            ServiceMarca Service = new ServiceMarca();
+
+            if (e.CommandName == "Editar")
             {
-                int idMarca = Convert.ToInt32(e.CommandArgument);
+                Marca marca = Service.buscarPorId(idMarca);
 
-                if (e.CommandName == "Eliminar")
+                ViewState["IdMarcaEdit"] = marca.Id;
+
+                if (marca != null)
                 {
-                    ServiceMarca Service = new ServiceMarca();
-                    Service.eliminar(idMarca);
+                    txtNombreEdit.Text = marca.Nombre;
 
-                    lblMenssageStatus("Marca eliminada correctamente.", "error");
-
-                    cargarGrid();
+                    panelEdit.Visible = true;
+                }
+                else
+                {
+                    lblMenssageStatus("Marca no encontrada.", "error");
                 }
             }
-            catch (Exception ex)
+            
+            if (e.CommandName == "Eliminar")
             {
-                lblMessage.Text = "Error: " + ex.Message;
+                Service.eliminar(idMarca);
+
+                lblMenssageStatus("Marca eliminada correctamente.", "error");
+
+                cargarGrid();
             }
         }
         private void cargarGrid()
@@ -85,6 +96,27 @@ namespace Comercio
 
             cargarGrid();
             limpiarForm();
+        }
+
+
+        protected void btnGuardarMarca_Click(object sender, EventArgs e)
+        {
+            Marca marca = new Marca();
+
+            marca.Nombre = txtNombreEdit.Text;
+
+            ServiceMarca Service = new ServiceMarca();
+            Service.modificar(int.Parse(ViewState["IdMarcaEdit"].ToString()), marca.Nombre);
+
+            lblMenssageStatus("Marca modificada correctamente.");
+
+            cargarGrid();
+
+            panelEdit.Visible = false;
+        }
+        protected void btnCerrarModal_Click(object sender, EventArgs e)
+        {
+            panelEdit.Visible = false;
         }
     }
 }

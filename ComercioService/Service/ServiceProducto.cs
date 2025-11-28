@@ -1,6 +1,7 @@
 ﻿using ComercioDomain;
 using ComercioService.DataBase;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -121,6 +122,11 @@ namespace ComercioService.Service
             DataAccess datos = new DataAccess();
             try
             {
+                datos.setearConsulta("DELETE FROM PROVEEDOR_PRODUCTO WHERE id_producto = @id ");
+                datos.setearParametro("@id", id);
+
+                datos.ejecutarScalar();
+
                 datos.setearConsulta("DELETE FROM PRODUCTOS WHERE id = @id");
                 datos.setearParametro("@id", id);
                 
@@ -150,13 +156,55 @@ namespace ComercioService.Service
                     Producto prod = new Producto();
                     prod.Id = (int)datos.Reader["id"];
                     prod.Nombre = (string)datos.Reader["nombre"];
+
                     return prod;
                 }
                 return null;
             }
-            finally 
+            finally
             {
-                datos.cerrarConexion(); 
+                datos.cerrarConexion();
+            }
+        }
+
+        public Producto buscarPorId(int id)
+        {
+            DataAccess datos = new DataAccess();
+            try
+            {
+                datos.setearConsulta("SELECT PRODUCTOS.id, PRODUCTOS.nombre, PRODUCTOS.stock_actual, PRODUCTOS.precio_compra, PRODUCTOS.porcentaje_ganancia, PRODUCTOS.id_marca, PRODUCTOS.id_categoria, PRODUCTOS.activo, MARCAS.nombre AS nombreMarca, PRODUCTOS.imagen_url, CATEGORIAS.nombre AS nombreCategoria FROM PRODUCTOS JOIN MARCAS ON PRODUCTOS.id_marca = MARCAS.id JOIN CATEGORIAS ON PRODUCTOS.id_categoria = CATEGORIAS.id WHERE PRODUCTOS.id = @id");
+                datos.setearParametro("@id", id);
+                datos.ejecutarLectura();
+
+                if (datos.Reader.Read())
+                {
+                    Producto prod = new Producto();
+                    prod.Id = (int)datos.Reader["id"];
+                    prod.Nombre = (string)datos.Reader["nombre"];
+                    prod.StockActual = (int)datos.Reader["stock_actual"];
+                    prod.PrecioCompra = (int)datos.Reader["precio_compra"];
+                    prod.Ganancia = Convert.ToSingle(datos.Reader["porcentaje_ganancia"]);
+
+                    prod.Marca = new Marca();
+
+                    prod.Marca.Id = (int)datos.Reader["id_marca"];
+                    prod.Marca.Nombre = (string)datos.Reader["nombreMarca"];
+
+                    prod.Categoria = new Categoria();
+
+                    prod.Categoria.Id = (int)datos.Reader["id_categoria"];
+                    prod.Categoria.Nombre = (string)datos.Reader["nombreCategoria"];
+
+                    prod.ImagenUrl = (string)datos.Reader["imagen_url"];
+
+                    prod.Activo = Convert.ToBoolean(datos.Reader["activo"]);
+                    return prod;
+                }
+                return null;
+            }
+            finally
+            {
+                datos.cerrarConexion();
             }
         }
 
@@ -173,6 +221,22 @@ namespace ComercioService.Service
             catch (Exception ex)
             {
                 throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void actualizarProveedorProducto(int idProducto, int idProveedor)
+        {
+            DataAccess datos = new DataAccess();
+            try
+            {
+                datos.setearConsulta("UPDATE PROVEEDOR_PRODUCTO SET id_proveedor = @idProveedor WHERE id_producto = @idProducto");
+                datos.setearParametro("@idProveedor", idProveedor);
+                datos.setearParametro("@idProducto", idProducto);
+                datos.ejecutarScalar();
             }
             finally
             {

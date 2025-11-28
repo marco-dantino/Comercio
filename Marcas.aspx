@@ -22,6 +22,20 @@
             </div>
         </div>
 
+        <asp:Panel ID="panelEdit" runat="server" CssClass="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-40" Visible="false">
+            <div class="bg-gray-900 p-6 rounded-lg shadow-xl w-full max-w-md relative z-50">
+                <h3 class="text-xl font-semibold mb-4 text-white">Editar Marca</h3>
+
+                <label for="txtNombreEdit">Nombre</label>
+                <asp:TextBox ID="txtNombreEdit" runat="server" CssClass="w-full mb-3 p-2 rounded text-black" />
+
+                <div class="flex justify-end gap-3 mt-4">
+                    <asp:Button ID="btnCerrarModal" runat="server" Text="Cancelar" CssClass="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded" CausesValidation="false" OnClick="btnCerrarModal_Click" />
+                    <asp:Button ID="btnGuardarMarca" runat="server" Text="Guardar cambios" CssClass="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded" CausesValidation="false" OnClick="btnGuardarMarca_Click" />
+                </div>
+            </div>
+        </asp:Panel>
+
         <div class="overflow-y-auto max-h-96">
             <asp:GridView ID="gvMarcas" runat="server" OnRowCommand="gvMarcas_RowCommand" AutoGenerateColumns="False" CssClass="grid-dark table-fixed w-full" ShowHeaderWhenEmpty="True" EmptyDataText="No hay Marcas registradas.">
                 <Columns>

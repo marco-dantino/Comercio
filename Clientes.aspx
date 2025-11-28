@@ -9,14 +9,14 @@
          <h1 class="text-3xl font-bold">Gestión de Clientes</h1>
          <asp:Label ID="lblMessage" runat="server" CssClass="text-green-400 font-medium" />
          <asp:Label ID="lblMessage2" runat="server" CssClass="text-red-400 font-medium" />
-         <asp:Button ID="btnAgregaCliente" runat="server" CssClass="bg-green-600 hover:bg-green-700 text-white font-semibold px-5 py-2 rounded-lg transition" Text="Agregar Cliente" />
+         <asp:Button ID="btnAgregaCliente" runat="server" OnClick="btnAgregaCliente_Click" CssClass="bg-green-600 hover:bg-green-700 text-white font-semibold px-5 py-2 rounded-lg transition" Text="Agregar Cliente" />
 
      </div>
 
      <div class="bg-[#1f2937] rounded-lg shadow-md p-6 mb-8 text-left space-y-6">
          <div class="grid md:grid-cols-3 gap-6">
 
-            <div>
+             <div>
                  <label for="txtDniCliente" class="block mb-1 font-medium">DNI</label>
                  <asp:TextBox ID="txtDniCliente" runat="server" CssClass="w-full bg-[#111827] border border-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500" />
                  <asp:RequiredFieldValidator ID="rfvDniCliente" runat="server" ControlToValidate="txtDniCliente" ErrorMessage="El DNI del Cliente es obligatorio." CssClass="text-red-400 text-sm" Display="Dynamic" ValidationExpression="^\d+$"/>
@@ -29,23 +29,15 @@
              </div>
 
              <div>
-                 <label for="txtApellidoCliente" class="block mb-1 font-medium">Apellido</label>
-                 <asp:TextBox ID="txtApellidoCliente" runat="server" CssClass="w-full bg-[#111827] border border-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500" />
-                 <asp:RequiredFieldValidator ID="rfvApellidoCliente" runat="server" ControlToValidate="txtApellidoCliente" ErrorMessage="El Apellido del Cliente es obligatorio." CssClass="text-red-400 text-sm" Display="Dynamic" />
-             </div>
-
-             <div>
                  <label for="txtDireccion" class="block mb-1 font-medium">Direccion Actual</label>
                  <asp:TextBox ID="txtDireccion" runat="server" CssClass="w-full bg-[#111827] border border-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500" />
                  <asp:RequiredFieldValidator ID="rfvDireccionCliente" runat="server" ControlToValidate="txtDireccion" ErrorMessage="La direccion es obligatoria." CssClass="text-red-400 text-sm" Display="Dynamic" />
-                 <asp:RegularExpressionValidator ID="revDireccion" runat="server" ControlToValidate="txtDireccion" ErrorMessage="Debe ser un número entero positivo." CssClass="text-red-400 text-sm" Display="Dynamic" ValidationExpression="^\d+$" />
              </div>
 
              <div>
                  <label for="txtTelefono" class="block mb-1 font-medium">Teléfono</label>
                  <asp:TextBox ID="txtTelefono" runat="server" CssClass="w-full bg-[#111827] border border-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500" />
-                 <asp:RequiredFieldValidator ID="rfvTelefono" runat="server" ControlToValidate="txtTelefono" ErrorMessage="El precio unitario es obligatorio." CssClass="text-red-400 text-sm" Display="Dynamic" />
-                 <asp:RegularExpressionValidator ID="revTelefono" runat="server" ControlToValidate="txtTelefono" ErrorMessage="Debe ser un número válido." CssClass="text-red-400 text-sm" Display="Dynamic" />
+                 <asp:RequiredFieldValidator ID="rfvTelefono" runat="server" ControlToValidate="txtTelefono" ErrorMessage="El telefono es obligatorio." CssClass="text-red-400 text-sm" Display="Dynamic" />
              </div>
 
              <div>
@@ -58,17 +50,32 @@
          </div>
      </div>
 
-     <div class="overflow-y-auto max-h-96">
-         <asp:GridView ID="gvClientes" runat="server" AutoGenerateColumns="False" CssClass="grid-dark" ShowHeaderWhenEmpty="True" EmptyDataText="No hay Clientes registrados.">
-             <Columns>
+        <asp:Panel ID="panelEdit" runat="server" CssClass="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-40" Visible="false">
+            <div class="bg-gray-900 p-6 rounded-lg shadow-xl w-full max-w-md relative z-50">
+                <h3 class="text-xl font-semibold mb-4 text-white">Editar Usuario</h3>
 
-                 <asp:TemplateField HeaderText="Imagen">
-                     <ItemTemplate>
-                         <img src='<%# Eval("Imagen") %>'
-                             alt="Imagen del Cliente"
-                             class="h-12 w-12 object-cover rounded-md border border-gray-700" />
-                     </ItemTemplate>
-                 </asp:TemplateField>
+                <label for="txtDniEdit">DNI</label>
+                <asp:TextBox ID="txtDniEdit" runat="server" CssClass="w-full mb-3 p-2 rounded text-black" />
+                <label for="txtNombreEdit">Nombre</label>
+                <asp:TextBox ID="txtNombreEdit" runat="server" CssClass="w-full mb-3 p-2 rounded text-black" />
+                <label for="txtEmailEdit">E-mail</label>
+                <label for="txtDireccion">Direccion</label>
+                <asp:TextBox ID="txtDireccionEdit" runat="server" CssClass="w-full mb-3 p-2 rounded text-black" />
+                <label for="txtTelefonoEdit">Telefono</label>
+                <asp:TextBox ID="txtTelefonoEdit" runat="server" CssClass="w-full mb-3 p-2 rounded text-black" />
+                <label for="txtEmailEdit">E-mail</label>
+                <asp:TextBox ID="txtEmailEdit" runat="server" CssClass="w-full mb-3 p-2 rounded text-black" />
+
+                <div class="flex justify-end gap-3 mt-4">
+                    <asp:Button ID="btnCerrarModal" runat="server" Text="Cancelar" CssClass="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded" CausesValidation="false" OnClick="btnCerrarModal_Click" />
+                    <asp:Button ID="btnGuardarCliente" runat="server" Text="Guardar cambios" CssClass="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded" CausesValidation="false" OnClick="btnGuardarCliente_Click" />
+                </div>
+            </div>
+        </asp:Panel>
+
+     <div class="overflow-y-auto max-h-96">
+         <asp:GridView ID="gvCliente" runat="server" OnRowCommand="gvClientes_RowCommand" AutoGenerateColumns="False" CssClass="grid-dark" ShowHeaderWhenEmpty="True" EmptyDataText="No hay Clientes registrados.">
+             <Columns>
 
                  <asp:BoundField DataField="dni" HeaderText="DNI" />
                  <asp:BoundField DataField="nombre" HeaderText="Nombre" />
@@ -78,10 +85,19 @@
 
                  <asp:TemplateField HeaderText="Acciones">
                      <ItemTemplate>
-                         <div class="actions flex justify-left gap-4">
-                             <button aria-label="Editar Cliente" class="material-icons-outlined">edit</button>
-                             <button aria-label="Eliminar Cliente" class="material-icons-outlined">delete</button>
-                         </div>
+                            <div class="actions flex justify-left gap-4">
+
+                                <!-- Botón Editar -->
+                                <asp:LinkButton ID="btnEditar" runat="server" CommandName="Editar" CommandArgument='<%# Eval("Id") %>' CausesValidation="false" CssClass="material-icons-outlined">
+                                    edit
+                                </asp:LinkButton>
+
+                                <!-- Botón Eliminar -->
+                                <asp:LinkButton ID="btnEliminar" runat="server" CommandName="Eliminar" CommandArgument='<%# Eval("Id") %>' CausesValidation="false" OnClientClick="return confirm('Estás seguro de eliminar este Proveedor?');" CssClass="material-icons-outlined text-red-500">
+                                    delete
+                                </asp:LinkButton>
+
+                            </div>
                      </ItemTemplate>
                  </asp:TemplateField>
 

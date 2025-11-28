@@ -39,8 +39,13 @@ namespace Comercio
             ddlMarca.DataValueField = "Id";
             ddlMarca.DataBind();
             ddlMarca.Items.Insert(0, new ListItem(string.Empty, "0"));
+            
+            ddlMarcaEdit.DataSource = marcas;
+            ddlMarcaEdit.DataTextField = "Nombre";
+            ddlMarcaEdit.DataValueField = "Id";
+            ddlMarcaEdit.DataBind();
+            ddlMarcaEdit.Items.Insert(0, new ListItem(string.Empty, "0"));
         }
-
         private void cargarCategorias()
         {
             ServiceCategoria categoriaNegocio = new ServiceCategoria();
@@ -50,8 +55,13 @@ namespace Comercio
             ddlCategoria.DataValueField = "Id";
             ddlCategoria.DataBind();
             ddlCategoria.Items.Insert(0, new ListItem(string.Empty, "0"));
+            
+            ddlCategoriaEdit.DataSource = categoriaNegocio.listar();
+            ddlCategoriaEdit.DataTextField = "Nombre";
+            ddlCategoriaEdit.DataValueField = "Id";
+            ddlCategoriaEdit.DataBind();
+            ddlCategoriaEdit.Items.Insert(0, new ListItem(string.Empty, "0"));
         }
-
         private void cargarProveedores()
         {
             ServiceProveedor categoriaProveedor = new ServiceProveedor();
@@ -61,8 +71,13 @@ namespace Comercio
             ddlProveedor.DataValueField = "Id";
             ddlProveedor.DataBind();
             ddlProveedor.Items.Insert(0, new ListItem(string.Empty, "0"));
+            
+            ddlProveedorEdit.DataSource = categoriaProveedor.listar();
+            ddlProveedorEdit.DataTextField = "Nombre";
+            ddlProveedorEdit.DataValueField = "Id";
+            ddlProveedorEdit.DataBind();
+            ddlProveedorEdit.Items.Insert(0, new ListItem(string.Empty, "0"));
         }
-
         protected void btnAgregaProducto_Click(object sender, EventArgs e)
         {
             if (ddlMarca.SelectedValue == "0")
@@ -88,7 +103,6 @@ namespace Comercio
                 lblMenssageStatus("El producto ya existe.", "warning");
                 return;
             }
-
             
             Producto newProducto = new Producto
             {
@@ -128,7 +142,6 @@ namespace Comercio
             gvProductos.DataSource = service.listar();
             gvProductos.DataBind();
         }
-
         private void limpiarForm() 
         {
             txtNombreProducto.Text = "";
@@ -141,26 +154,45 @@ namespace Comercio
         }
         protected void gvProductos_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            try
-            {
-                int idProducto = Convert.ToInt32(e.CommandArgument);
+            int idProducto = Convert.ToInt32(e.CommandArgument);
+            ServiceProducto service = new ServiceProducto();
 
-                if (e.CommandName == "Eliminar")
+            if (e.CommandName == "Editar")
+            {
+                Producto prod = service.buscarPorId(idProducto);
+
+                ViewState["IdProductoEdit"] = prod.Id;
+
+                if (prod != null)
                 {
-                    ServiceProducto Service = new ServiceProducto();
-                    Service.eliminar(idProducto);
+                    txtNombreEdit.Text = prod.Nombre;
+                    txtStockActualEdit.Text = prod.StockActual.ToString();
+                    txtPrecioCompraEdit.Text = prod.PrecioCompra.ToString();
+                    txtPorcentajeGananciaEdit.Text = prod.Ganancia.ToString();
 
-                    lblMenssageStatus("Producto eliminado correctamente.", "error");
+                    ddlMarcaEdit.SelectedValue = prod.Marca.Id.ToString();
+                    ddlCategoriaEdit.SelectedValue = prod.Categoria.Id.ToString();
 
-                    cargarGrid();
+                    txtImagenUrlEdit.Text = prod.ImagenUrl;
+
+                    panelEdit.Visible = true;
                 }
+                else
+                {
+                    lblMenssageStatus("Producto no encontrado.", "error");
+                }
+
             }
-            catch (Exception ex)
+            if (e.CommandName == "Eliminar")
             {
-                lblMessage.Text = "Error: " + ex.Message;
+                ServiceProducto Service = new ServiceProducto();
+                Service.eliminar(idProducto);
+
+                lblMenssageStatus("Producto eliminado correctamente.", "error");
+
+                cargarGrid();
             }
         }
-
         private void lblMenssageStatus(string mensaje, string type = "success")
         {
             lblMessage.Text = mensaje;
@@ -177,6 +209,38 @@ namespace Comercio
             {
                 lblMessage.CssClass = "block mt-4 px-4 py-2 rounded-md bg-green-900 text-green-300 border border-green-700 font-medium";
             }
+        }
+        protected void btnGuardarProducto_Click(object sender, EventArgs e)
+        {
+            Producto prod = new Producto {
+                Id = (int)ViewState["IdProductoEdit"],
+
+                Nombre = txtNombreEdit.Text,
+                StockActual = int.Parse(txtStockActualEdit.Text),
+                PrecioCompra = float.Parse(txtPrecioCompraEdit.Text),
+                Ganancia = float.Parse(txtPorcentajeGananciaEdit.Text),
+
+                Marca = new Marca { Id = int.Parse(ddlMarcaEdit.SelectedValue) },
+                Categoria = new Categoria { Id = int.Parse(ddlCategoriaEdit.SelectedValue) },
+
+                ImagenUrl = txtImagenUrlEdit.Text,
+                Activo = true,
+            };
+
+            ServiceProducto service = new ServiceProducto();
+            service.modificar(prod);
+
+            service.actualizarProveedorProducto(prod.Id, int.Parse(ddlProveedorEdit.SelectedValue));
+
+            lblMenssageStatus("Producto modificado correctamente.");
+
+            cargarGrid();
+
+            panelEdit.Visible = false;
+        }
+        protected void btnCerrarModal_Click(object sender, EventArgs e)
+        {
+            panelEdit.Visible = false;
         }
     }
 }

@@ -71,6 +71,36 @@
             </div>
         </div>
 
+        <asp:Panel ID="panelEdit" runat="server" CssClass="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-40" Visible="false">
+            <div class="bg-gray-900 p-6 rounded-lg shadow-xl w-full max-w-md relative z-50">
+                <h3 class="text-xl font-semibold mb-4 text-white">Editar Producto</h3>
+
+
+                <label for="txtNombreEdit">Nombre</label>
+                <asp:TextBox ID="txtNombreEdit" runat="server" CssClass="w-full mb-3 p-2 rounded text-black" />
+                <label for="txtStockActualEdit">Stock Actual</label>
+                <asp:TextBox ID="txtStockActualEdit" runat="server" CssClass="w-full mb-3 p-2 rounded text-black" />
+                <label for="txtPrecioCompraEdit">Precio Compra</label>
+                <asp:TextBox ID="txtPrecioCompraEdit" runat="server" CssClass="w-full mb-3 p-2 rounded text-black" />
+                <label for="txtPorcentajeGananciaEdit">Ganancia</label>
+                <asp:TextBox ID="txtPorcentajeGananciaEdit" runat="server" CssClass="w-full mb-3 p-2 rounded text-black" />
+                <label for="txtImagenUrlEdit">URL Imagen</label>
+                <asp:TextBox ID="txtImagenUrlEdit" runat="server" CssClass="w-full mb-3 p-2 rounded text-black" />
+
+                <label for="ddlMarcaEdit">Marca</label>
+                <asp:DropDownList ID="ddlMarcaEdit" runat="server" CssClass="w-full mb-3 p-2 rounded text-black"></asp:DropDownList>
+                <label for="ddlCategoriaEdit">Categoría</label>
+                <asp:DropDownList ID="ddlCategoriaEdit" runat="server" CssClass="w-full mb-3 p-2 rounded text-black"></asp:DropDownList>
+                <label for="ddlProveedorEdit">Proveedor</label>
+                <asp:DropDownList ID="ddlProveedorEdit" runat="server" CssClass="w-full mb-3 p-2 rounded text-black"></asp:DropDownList>
+
+                <div class="flex justify-end gap-3 mt-4">
+                    <asp:Button ID="btnCerrarModal" runat="server" Text="Cancelar" CssClass="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded" CausesValidation="false" OnClick="btnCerrarModal_Click" />
+                    <asp:Button ID="btnGuardarProducto" runat="server" Text="Guardar cambios" CssClass="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded" CausesValidation="false" OnClick="btnGuardarProducto_Click" />
+                </div>
+            </div>
+        </asp:Panel>
+
         <div class="overflow-y-auto max-h-96">
             <asp:GridView ID="gvProductos" OnRowCommand="gvProductos_RowCommand" runat="server" DataKeyNames="Id" AutoGenerateColumns="False" CssClass="grid-dark" ShowHeaderWhenEmpty="True" EmptyDataText="No hay Productos registrados.">
                 <Columns>

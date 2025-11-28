@@ -123,5 +123,30 @@ namespace ComercioService.Service
                 datos.cerrarConexion();
             }
         }
+        public Categoria buscarPorId(int id)
+        {
+            DataAccess datos = new DataAccess();
+            try
+            {
+                datos.setearConsulta("SELECT TOP 1 * FROM CATEGORIAS WHERE id = @id");
+                datos.setearParametro("@id", id);
+                datos.ejecutarLectura();
+
+                if (datos.Reader.Read())
+                {
+                    Categoria categoria = new Categoria();
+                    categoria.Id = (int)datos.Reader["id"];
+                    categoria.Nombre = (string)datos.Reader["nombre"];
+
+                    return categoria;
+                }
+
+                return null;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }

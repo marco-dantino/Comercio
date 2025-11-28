@@ -11,97 +11,124 @@ namespace Comercio
 {
 
 
-    public partial class Categorias
+    public partial class GestionarCompra
     {
 
         /// <summary>
-        /// Control lblMessage.
+        /// Control ddlProveedor.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMessage;
+        protected global::System.Web.UI.WebControls.DropDownList ddlProveedor;
 
         /// <summary>
-        /// Control lblMessage2.
+        /// Control rfvProveedor.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMessage2;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvProveedor;
 
         /// <summary>
-        /// Control btnAgregaCategoria.
+        /// Control txtFecha.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAgregaCategoria;
+        protected global::System.Web.UI.WebControls.TextBox txtFecha;
 
         /// <summary>
-        /// Control txtNombreCategoria.
+        /// Control ddlProducto.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNombreCategoria;
+        protected global::System.Web.UI.WebControls.DropDownList ddlProducto;
 
         /// <summary>
-        /// Control rfvNombreCategoria.
+        /// Control rfvProducto.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvNombreCategoria;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvProducto;
 
         /// <summary>
-        /// Control panelEdit.
+        /// Control txtCantidad.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel panelEdit;
+        protected global::System.Web.UI.WebControls.TextBox txtCantidad;
 
         /// <summary>
-        /// Control txtNombreEdit.
+        /// Control rfvStockProducto.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNombreEdit;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvStockProducto;
 
         /// <summary>
-        /// Control btnCerrarModal.
+        /// Control revCantidad.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCerrarModal;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revCantidad;
 
         /// <summary>
-        /// Control btnGuardarCategoria.
+        /// Control txtPrecioCompra.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGuardarCategoria;
+        protected global::System.Web.UI.WebControls.TextBox txtPrecioCompra;
 
         /// <summary>
-        /// Control gvCategorias.
+        /// Control rfvPrecioCompra.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvCategorias;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPrecioCompra;
+
+        /// <summary>
+        /// Control revPrecioCompra.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revPrecioCompra;
+
+        /// <summary>
+        /// Control txtSubtotal.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSubtotal;
+
+        /// <summary>
+        /// Control gvDetalleCompra.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvDetalleCompra;
     }
 }

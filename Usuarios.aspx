@@ -56,9 +56,13 @@
             <div class="bg-gray-900 p-6 rounded-lg shadow-xl w-full max-w-md relative z-50">
                 <h3 class="text-xl font-semibold mb-4 text-white">Editar Usuario</h3>
 
+                <label for="txtNombreEdit">Nombre</label>
                 <asp:TextBox ID="txtNombreEdit" runat="server" CssClass="w-full mb-3 p-2 rounded text-black" />
+                <label for="txtApellidoEdit">Apellido</label>
                 <asp:TextBox ID="txtApellidoEdit" runat="server" CssClass="w-full mb-3 p-2 rounded text-black" />
+                <label for="txtEmailEdit">E-mail</label>
                 <asp:TextBox ID="txtEmailEdit" runat="server" CssClass="w-full mb-3 p-2 rounded text-black" />
+                <label for="txtPasswordEdit">Contraseña</label>
                 <asp:TextBox ID="txtPasswordEdit" runat="server" CssClass="w-full mb-3 p-2 rounded text-black" />
 
                 <div class="flex justify-end gap-3 mt-4">
@@ -83,12 +87,12 @@
                             <div class="actions flex justify-left gap-4">
 
                                 <!-- Botón Editar -->
-                                <asp:LinkButton ID="btnEditar" runat="server" CommandName="Editar" CommandArgument='<%# Eval("Nombre") %>' CausesValidation="false" CssClass="material-icons-outlined">
+                                <asp:LinkButton ID="btnEditar" runat="server" CommandName="Editar" CommandArgument='<%# Eval("Id") %>' CausesValidation="false" CssClass="material-icons-outlined">
                                     edit
                                 </asp:LinkButton>
 
                                 <!-- Botón Eliminar -->
-                                <asp:LinkButton ID="btnEliminar" runat="server" CommandName="Eliminar" CommandArgument='<%# Eval("Id") %>' CausesValidation="false" OnClientClick="return confirm('Estás seguro de eliminar este producto?');" CssClass="material-icons-outlined text-red-500">
+                                <asp:LinkButton ID="btnEliminar" runat="server" CommandName="Eliminar" CommandArgument='<%# Eval("Id") %>' CausesValidation="false" OnClientClick="return confirm('Estás seguro de eliminar este Usuario?');" CssClass="material-icons-outlined text-red-500">
                                     delete
                                 </asp:LinkButton>
 
