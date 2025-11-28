@@ -14,7 +14,7 @@
             document.getElementById("<%= txtSubtotal.ClientID %>").value = subtotal.toFixed(2);
         }
     </script>
-    
+
     <main class="flex-1 p-6 lg:p-10 flex flex-col">
 
         <div class="max-w-4xl mx-auto w-full flex-grow">
@@ -29,7 +29,7 @@
 
                         <div>
                             <label for="ddlProveedor">Proveedor</label>
-                            <asp:DropDownList ID="ddlProveedor" runat="server" CssClass="w-full bg-[#111827] border border-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500 text-gray-100"></asp:DropDownList>
+                            <asp:DropDownList ID="ddlProveedor" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlProveedor_SelectedIndexChanged" CssClass="w-full bg-[#111827] border border-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500 text-gray-100"></asp:DropDownList>
                             <asp:RequiredFieldValidator ID="rfvProveedor" runat="server" ControlToValidate="ddlProveedor" InitialValue="" ErrorMessage="El proveedor es requerido." CssClass="text-red-400 text-sm" Display="Dynamic" />
                         </div>
 
@@ -64,29 +64,32 @@
                         </div>
 
                         <div class=" flex gap-4">
-                            <button class="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded">
-                                Agregar Producto
-                            </button>
-                            <button class="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded">
-                                Registrar Compra
-                            </button>
+                            <asp:Label ID="lblTotal" runat="server" />
+                            <asp:Button ID="btnAgregarDetalle" runat="server" CssClass="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded" Text="Agregar Detalle" OnClick="btnAgregarDetalle_Click" />
+
+                            <asp:Button ID="btnGuardar" runat="server" CausesValidation="false" CssClass="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded" Text="Guardar Compra" OnClick="btnGuardar_Click" />
+                            <asp:Label ID="lblMensaje" runat="server" />
+
                         </div>
-
-
-
-                        <asp:GridView ID="gvDetalleCompra" runat="server" AutoGenerateColumns="False" CssClass="w-full text-gray-200 mt-6">
-                            <Columns>
-                                <asp:BoundField DataField="Producto.Nombre" HeaderText="Producto" />
-                                <asp:BoundField DataField="Cantidad" HeaderText="Cantidad" />
-                                <asp:BoundField DataField="PrecioCompra" HeaderText="Precio Compra" />
-                                <asp:BoundField DataField="Subtotal" HeaderText="Subtotal" />
-                            </Columns>
-                        </asp:GridView>
-
-
                     </div>
                 </div>
             </div>
+            <asp:GridView ID="gvDetalleCompra" runat="server" AutoGenerateColumns="False" CssClass="grid-dark"  OnRowCommand="gvDetalleCompra_RowCommand">
+                <Columns>
+                    <asp:BoundField DataField="Producto.Nombre" HeaderText="Producto" />
+                    <asp:BoundField DataField="Cantidad" HeaderText="Cantidad" />
+                    <asp:BoundField DataField="PrecioUnitario" HeaderText="Precio Unitario" />
+                    <asp:BoundField DataField="Subtotal" HeaderText="Subtotal" />
+
+                    <asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:LinkButton ID="btnEliminar" runat="server" CommandName="Eliminar" CommandArgument='<%# Container.DataItemIndex %>' CausesValidation="false" OnClientClick="return confirm('Estás seguro de eliminar este Detalle?');" CssClass="material-icons-outlined text-red-500">
+                                delete
+                            </asp:LinkButton>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                </Columns>
+            </asp:GridView>
         </div>
     </main>
 </asp:Content>

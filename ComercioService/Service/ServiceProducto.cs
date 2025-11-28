@@ -244,6 +244,37 @@ namespace ComercioService.Service
             }
         }
 
+        public List<Producto> listarPorProveedor(int idProveedor)
+        {
+            List<Producto> lista = new List<Producto>();
+            DataAccess datos = new DataAccess();
+
+            try
+            {
+                datos.setearConsulta(@"SELECT PRODUCTOS.id, PRODUCTOS.nombre, PRODUCTOS.precio_compra FROM PRODUCTOS INNER JOIN PROVEEDOR_PRODUCTO ON PROVEEDOR_PRODUCTO.id_producto = PRODUCTOS.id WHERE PROVEEDOR_PRODUCTO.id_proveedor = @idProveedor");
+
+                datos.setearParametro("@idProveedor", idProveedor);
+                datos.ejecutarLectura();
+
+                while (datos.Reader.Read())
+                {
+                    Producto aux = new Producto
+                    {
+                        Id = (int)datos.Reader["id"],
+                        Nombre = datos.Reader["nombre"].ToString(),
+                        PrecioCompra = float.Parse(datos.Reader["precio_compra"].ToString())
+                    };
+
+                    lista.Add(aux);
+                }
+
+                return lista;
+            }
+            catch (Exception ex) { throw ex; }
+            finally { datos.cerrarConexion(); }
+        }
+
+
         //public void activarProducto()
         //{
         //    DataAccess datos = new DataAccess();
