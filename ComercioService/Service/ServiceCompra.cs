@@ -62,7 +62,7 @@ namespace ComercioService.Service
 
                 foreach (var detalle in detalles)
                 {
-                    datos.setearConsulta(@"INSERT INTO DETALLE_COMPRAS (cantidad, precio_unitario, id_compra, id_producto)VALUES (@cantidad, @precio_unitario, @id_compra, @id_producto)");
+                    datos.setearConsulta(@"INSERT INTO DETALLE_COMPRAS (cantidad, precio_unitario, id_compra, id_producto) VALUES (@cantidad, @precio_unitario, @id_compra, @id_producto)");
 
                     datos.setearParametro("@cantidad", detalle.Cantidad);
                     datos.setearParametro("@precio_unitario", detalle.PrecioUnitario);
@@ -70,7 +70,6 @@ namespace ComercioService.Service
                     datos.setearParametro("@id_producto", detalle.Producto.Id);
 
                     datos.ejecutarScalar();
-
                 }
                 
                 return idCompra;

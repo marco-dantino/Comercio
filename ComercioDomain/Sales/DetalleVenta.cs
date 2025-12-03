@@ -9,11 +9,12 @@ namespace ComercioDomain.Sales
 {
     public class DetalleVenta : DetalleBase
     {
-        public Venta Venta{ get; set; }
+        public Venta Venta { get; set; }
+
+        public float PrecioVenta { get; set; }
         public float CalcularPrecioVenta(Producto producto)
         {
             return producto.PrecioCompra * (1 + producto.Ganancia);
         }
-
     }
 }

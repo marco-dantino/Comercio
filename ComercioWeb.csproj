@@ -121,6 +121,7 @@
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="GestionarCompra.aspx" />
+    <Content Include="GestionarVenta.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
     <Content Include="Marcas.aspx" />
@@ -219,6 +220,13 @@
     </Compile>
     <Compile Include="GestionarCompra.aspx.designer.cs">
       <DependentUpon>GestionarCompra.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GestionarVenta.aspx.cs">
+      <DependentUpon>GestionarVenta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GestionarVenta.aspx.designer.cs">
+      <DependentUpon>GestionarVenta.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

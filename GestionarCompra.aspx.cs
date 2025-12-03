@@ -91,9 +91,11 @@ namespace Comercio
             ServiceCompra Service = new ServiceCompra();
 
             Compra compra = new Compra();
-            compra.Fecha = DateTime.Now;
+            compra.Fecha = DateTime.Parse(txtFecha.Text);
             compra.Total = ListaDetalle.Sum(x => x.Subtotal);
             compra.Proveedor = new Proveedor { Id = int.Parse(ddlProveedor.SelectedValue) };
+
+            // TASK: update al stock actual de los productos
 
             int idCompra = Service.agregar(compra, ListaDetalle);
 

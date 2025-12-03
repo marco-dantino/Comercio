@@ -19,7 +19,7 @@
                     Registra nuevas compras y administra tus proveedores.
                 </p>
             </a>
-            <a class="group block p-6 sm:p-8 bg-gray-800 border border-slate-800 rounded-lg shadow-sm" href="#">
+            <a class="group block p-6 sm:p-8 bg-gray-800 border border-slate-800 rounded-lg shadow-sm" href="GestionarVenta.aspx">
                 <div class="flex justify-center mb-4">
                     <span class="material-icons-outlined text-primary text-5xl sm:text-6xl">sell
                     </span>

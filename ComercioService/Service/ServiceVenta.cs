@@ -1,0 +1,131 @@
+﻿using ComercioDomain;
+using ComercioDomain.Purchases;
+using ComercioDomain.Sales;
+using ComercioService.DataBase;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ComercioService.Service
+{
+    public class ServiceVenta
+    {
+        public List<Venta> listar()
+        {
+            DataAccess datos = new DataAccess();
+            List<Venta> lista = new List<Venta>();
+
+            try
+            {
+                datos.setearConsulta("SELECT id, fecha, total, numero_factura, id_cliente, id_usuario FROM VENTAS");
+                datos.ejecutarLectura();
+
+                while (datos.Reader.Read())
+                {
+                    Venta aux = new Venta
+                    {
+                        Id = (int)datos.Reader["id"],
+                        Fecha = (DateTime)datos.Reader["fecha"],
+                        Total = Convert.ToSingle(datos.Reader["total"]),
+                        NumeroFactura = datos.Reader["total"].ToString(),
+                        DetallesCliente = new Cliente
+                        {
+                            Id = (int)datos.Reader["id_cliente"]
+                        },
+                        DetallesUsuario = new Usuario
+                        {
+                            Id = (int)datos.Reader["id_usuario"]
+                        }
+                    };
+
+                    lista.Add(aux);
+                }
+
+                return lista;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public int agregar(Venta venta, List<DetalleVenta> detalles)
+        {
+            DataAccess datos = new DataAccess();
+
+            try
+            {
+
+                datos.setearConsulta(@"INSERT INTO VENTAS (fecha, total, numero_factura, id_cliente, id_usuario) VALUES (@fecha, @total, @numero_factura, @id_cliente, @id_usuario) SELECT CAST(SCOPE_IDENTITY() AS int);");
+
+                datos.setearParametro("@fecha", venta.Fecha);
+                datos.setearParametro("@total", venta.Total);
+                datos.setearParametro("@numero_factura", venta.NumeroFactura);
+                datos.setearParametro("@id_cliente", venta.DetallesCliente.Id);
+                datos.setearParametro("@id_usuario", venta.DetallesUsuario.Id);
+
+                int idVenta = Convert.ToInt32(datos.ejecutarScalar());
+
+                foreach (var detalle in detalles)
+                {
+                    datos.setearConsulta(@"INSERT INTO DETALLE_VENTAS (cantidad, precio_unitario, id_venta, id_producto) VALUES (@cantidad, @precio_unitario, @id_venta, @id_producto)");
+
+                    datos.setearParametro("@cantidad", detalle.Cantidad);
+                    datos.setearParametro("@precio_unitario", detalle.PrecioUnitario);
+                    datos.setearParametro("@id_venta", idVenta);
+                    datos.setearParametro("@id_producto", detalle.Producto.Id);
+
+                    datos.ejecutarScalar();
+                }
+
+                return idVenta;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        //public void modificar(int id, DateTime fecha, float total, int proveedorID)
+        //{
+        //    DataAccess datos = new DataAccess();
+
+        //    try
+        //    {
+        //        datos.setearConsulta(@"UPDATE COMPRAS SET fecha = @fecha, total = @total, id_proveedor = @id_proveedor WHERE id = @id");
+
+        //        datos.setearParametro("@id", id);
+        //        datos.setearParametro("@fecha", fecha);
+        //        datos.setearParametro("@total", total);
+        //        datos.setearParametro("@id_proveedor", proveedorID);
+
+        //        datos.ExecuteNonQuery();
+        //    }
+        //    finally
+        //    {
+        //        datos.cerrarConexion();
+        //    }
+        //}
+        public void eliminar(int id)
+        {
+            DataAccess datos = new DataAccess();
+
+            try
+            {
+                datos.setearConsulta("DELETE FROM DETALLE_VENTAS WHERE id_compra = @id");
+                datos.setearParametro("@id", id);
+                datos.ExecuteNonQuery();
+
+                datos.setearConsulta("DELETE FROM VENTAS WHERE id = @id");
+                datos.setearParametro("@id", id);
+                datos.ExecuteNonQuery();
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+    }
+}
