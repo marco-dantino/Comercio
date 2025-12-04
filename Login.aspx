@@ -34,6 +34,7 @@
 </head>
 
 <body class="bg-background-dark text-gray-100">
+    <asp:Label ID="lblMessage" runat="server" CssClass="flex absolute pt-8" />
 
     <div class="grid min-h-screen md:grid-cols-2">
 
@@ -48,7 +49,7 @@
                 <p class="mt-2 text-gray-400">Gestión simplificada para tu negocio.</p>
             </div>
         </div>
-
+        
         <!-- Panel Derecho -->
         <div class="flex items-center justify-center p-8 bg-background-dark">
             <div class="w-full max-w-md border border-gray-800 rounded-xl p-8 shadow-xl space-y-6">
@@ -62,7 +63,9 @@
                         <label class="block text-sm font-medium mb-2">Usuario</label>
                         <div class="relative">
                             <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">person</span>
-                            <input runat="server" id="txtUsuario" type="text" placeholder="Correo electrónico" class="w-full pl-10 pr-3 py-3 bg-gray-800 border border-gray-700 rounded-lg text-gray-100 focus:ring-2 focus:ring-red-600 placeholder:text-gray-500 focus:outline-none" />
+                            <asp:TextBox ID="txtEmail" runat="server" placeholder="Correo electrónico" CssClass="w-full pl-10 pr-3 py-3 bg-gray-800 border border-gray-700 rounded-lg text-gray-100 focus:ring-2 focus:ring-red-600 placeholder:text-gray-500 focus:outline-none" />
+                            <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ControlToValidate="txtEmail" ErrorMessage="Campo obligatorio." CssClass="text-red-400 text-sm" Display="Dynamic" />
+                            <asp:RegularExpressionValidator ID="revEmail" runat="server" ControlToValidate="txtEmail" ErrorMessage="Email inválido." CssClass="text-red-400 text-sm" Display="Dynamic" ValidationExpression="^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$" />
                         </div>
                     </div>
 
@@ -70,16 +73,16 @@
                         <label class="block text-sm font-medium mb-2">Contraseña</label>
                         <div class="relative">
                             <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">lock</span>
-                            <input runat="server" id="txtClave" type="password" placeholder="Contraseña" class="w-full pl-10 pr-10 py-3 bg-gray-800 border border-gray-700 rounded-lg text-gray-100 focus:ring-2 focus:ring-red-600 placeholder:text-gray-500 focus:outline-none" />
+                            <asp:TextBox ID="txtClave" runat="server" TextMode="Password" placeholder="Contraseña" CssClass="w-full pl-10 pr-10 py-3 bg-gray-800 border border-gray-700 rounded-lg text-gray-100 focus:ring-2 focus:ring-red-600 placeholder:text-gray-500 focus:outline-none" />
                         </div>
                     </div>
 
-                    <asp:Button ID="btnIngresar" runat="server" Text="Ingresar" CssClass="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 rounded-lg transition" />
+                    <asp:Button ID="btnIngresar" OnClick="btnIngresar_Click" runat="server" Text="Ingresar" CssClass="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 rounded-lg transition" />
                 </form>
 
                 <p class="text-center text-sm text-gray-400">
                     ¿No tienes una cuenta?
-          <a href="#" class="text-red-500 hover:underline">Regístrate aquí</a>
+                <a href="#" class="text-red-500 hover:underline">Regístrate aquí</a>
                 </p>
             </div>
         </div>

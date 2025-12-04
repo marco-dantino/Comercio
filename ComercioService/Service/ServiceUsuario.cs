@@ -10,6 +10,44 @@ namespace ComercioService.Service
 {
     public class ServiceUsuario
     {
+        public bool Login(Usuario usuario)
+        {
+            DataAccess datos = new DataAccess();
+            try
+            {
+                datos.setearConsulta("SELECT TOP 1 USUARIOS.*, ROLES.nombre AS nombre_rol FROM USUARIOS INNER JOIN ROLES ON USUARIOS.id_rol = ROLES.id WHERE USUARIOS.email = @email AND USUARIOS.password = @password;");
+                datos.setearParametro("@email", usuario.Email);
+                datos.setearParametro("@password", usuario.Password);
+                datos.ejecutarLectura();
+
+                if (datos.Reader.Read())
+                {
+                    usuario.Id = (int)datos.Reader["id"];
+                    usuario.Nombre = (string)datos.Reader["nombre"];
+                    usuario.Apellido = (string)datos.Reader["apellido"];
+                    usuario.Email = (string)datos.Reader["email"];
+                    usuario.Password = (string)datos.Reader["password"];
+
+                    usuario.Rol = new Rol();
+                    usuario.Rol.RolId = (int)datos.Reader["id_rol"];
+                    usuario.Rol.RolNombre = (string)datos.Reader["nombre_rol"];
+
+                    usuario.RolUsuario = (int)(datos.Reader["id_rol"]) == 2 ? RolUsuario.ADMIN : RolUsuario.VENDEDOR;
+
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
         public List<Usuario> listar()
         {
             List<Usuario> lista = new List<Usuario>();
