@@ -43,7 +43,7 @@
                         <asp:Label ID="lblTotal" runat="server" />
                         <asp:Button ID="btnAgregarDetalle" runat="server" CssClass="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded" Text="Agregar Detalle" OnClick="btnAgregarDetalle_Click" />
 
-                        <asp:Button ID="btnGuardar" runat="server" CausesValidation="false" CssClass="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded" Text="Guardar Compra" OnClick="btnGuardar_Click" />
+                        <asp:Button ID="btnGuardar" runat="server" CausesValidation="false" CssClass="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded" Text="Guardar Venta" OnClick="btnGuardar_Click" />
                         <asp:Label ID="lblMensaje" runat="server" />
 
                     </div>
