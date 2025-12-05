@@ -7,18 +7,22 @@
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-3xl font-bold">Facturacion</h1>
             <asp:Label ID="lblMessage" runat="server" CssClass="text-green-400 font-medium" />
-            <asp:Button ID="btnAgregaCliente" runat="server" CssClass="bg-green-600 hover:bg-green-700 text-white font-semibold px-5 py-2 rounded-lg transition" Text="Agregar Cliente" />
+            <div>
+                <asp:Button ID="btnListar" runat="server" CssClass="bg-green-600 hover:bg-green-700 text-white font-semibold px-5 py-2 rounded-lg transition" OnClick="btnListar_Click" Text="Listar todo" />
+                <asp:Button ID="btnBuscarNombre" runat="server" CssClass="bg-green-600 hover:bg-green-700 text-white font-semibold px-5 py-2 rounded-lg transition" OnClick="btnBuscarNombre_Click" Text="Buscar por Nombre" />
+                <asp:Button ID="btnBuscar" runat="server" CssClass="bg-green-600 hover:bg-green-700 text-white font-semibold px-5 py-2 rounded-lg transition" OnClick="btnBuscar_Click" Text="Buscar Por Fecha" />
+            </div>
         </div>
 
         <div class="bg-[#1f2937] rounded-lg shadow-md p-6 mb-8 text-left space-y-6">
             <div class="grid grid-cols-3 md:grid-cols-3 gap-6 items-end">
-                
+
                 <div class="relative w-full">
                     <label for="">Buscar Factura</label>
                     <label class="material-icons-outlined absolute left-3 top-1/2 -translate-y-1/8">search</label>
                     <asp:TextBox ID="txtFactura" runat="server" placeholder="Nº de factura..." CssClass="w-full pl-12 pr-4 py-2 bg-gray-900 border border-gray-700 rounded-md text-white focus:ring-primary focus:border-primary" />
                 </div>
-                
+
                 <div>
                     <label for="txtFechaDesde">Fecha Desde</label>
                     <asp:TextBox ID="txtFechaDesde" runat="server" CssClass="w-full bg-[#111827] border border-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500 text-gray-100" TextMode="Date" Text='<%# DateTime.Now.ToString("dd/MM/yyyy") %>' min="1900-01-01" max="2100-12-31"></asp:TextBox>
@@ -28,21 +32,21 @@
                     <label for="txtFechaHasta">Fecha Hasta</label>
                     <asp:TextBox ID="txtFechaHasta" runat="server" CssClass="w-full bg-[#111827] border border-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500 text-gray-100" TextMode="Date" Text='<%# DateTime.Now.ToString("dd/MM/yyyy") %>' min="1900-01-01" max="2100-12-31"></asp:TextBox>
                 </div>
-            
+
             </div>
         </div>
 
-    <div class="overflow-y-auto max-h-96">
-         <asp:GridView ID="gvFacturas" runat="server" AutoGenerateColumns="False" CssClass="grid-dark" ShowHeaderWhenEmpty="True" EmptyDataText="No hay Ventas registradas.">
-             <Columns>
+        <div class="overflow-y-auto max-h-96">
+            <asp:GridView ID="gvFacturas" runat="server" AutoGenerateColumns="False" CssClass="grid-dark" ShowHeaderWhenEmpty="True" EmptyDataText="No hay Ventas registradas.">
+                <Columns>
 
-                 <asp:BoundField DataField="NumeroFactura" HeaderText="NumeroFactura" />
-                 <asp:BoundField DataField="DetallesCliente.Nombre" HeaderText="Cliente" />
-                 <asp:BoundField DataField="Fecha" HeaderText="Fecha" />
-                 <asp:BoundField DataField="Total" HeaderText="Total" />
+                    <asp:BoundField DataField="NumeroFactura" HeaderText="NumeroFactura" />
+                    <asp:BoundField DataField="DetallesCliente.Nombre" HeaderText="Cliente" />
+                    <asp:BoundField DataField="Fecha" HeaderText="Fecha" />
+                    <asp:BoundField DataField="Total" HeaderText="Total" />
 
-                 <asp:TemplateField HeaderText="Acciones">
-                     <ItemTemplate>
+                    <asp:TemplateField HeaderText="Acciones">
+                        <ItemTemplate>
                             <div class="actions flex justify-left gap-4">
 
                                 <!-- Botón Editar -->
@@ -56,12 +60,10 @@
                                 </asp:LinkButton>
 
                             </div>
-                     </ItemTemplate>
-                 </asp:TemplateField>
+                        </ItemTemplate>
+                    </asp:TemplateField>
 
-             </Columns>
-         </asp:GridView>
-     </div>
-
+                </Columns>
+            </asp:GridView>
     </main>
 </asp:Content>
