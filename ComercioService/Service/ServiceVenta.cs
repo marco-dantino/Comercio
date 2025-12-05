@@ -12,14 +12,15 @@ namespace ComercioService.Service
 {
     public class ServiceVenta
     {
-        public List<Venta> listar()
+        public List<Venta> listarPorUsuario(Usuario user)
         {
             DataAccess datos = new DataAccess();
             List<Venta> lista = new List<Venta>();
 
             try
             {
-                datos.setearConsulta("SELECT id, fecha, total, numero_factura, id_cliente, id_usuario FROM VENTAS");
+                datos.setearConsulta("SELECT VENTAS.id, VENTAS.fecha, VENTAS.total, VENTAS.numero_factura, CLIENTES.nombre AS nombre_cliente, USUARIOS.nombre AS nombre_usuario, VENTAS.id_usuario, VENTAS.id_cliente FROM VENTAS LEFT JOIN CLIENTES ON VENTAS.id_cliente = CLIENTES.id LEFT JOIN USUARIOS ON VENTAS.id_usuario = USUARIOS.id WHERE VENTAS.id_usuario = @IdUsuario;;");
+                datos.setearParametro("@IdUsuario", user.Id);
                 datos.ejecutarLectura();
 
                 while (datos.Reader.Read())
@@ -29,14 +30,16 @@ namespace ComercioService.Service
                         Id = (int)datos.Reader["id"],
                         Fecha = (DateTime)datos.Reader["fecha"],
                         Total = Convert.ToSingle(datos.Reader["total"]),
-                        NumeroFactura = datos.Reader["total"].ToString(),
+                        NumeroFactura = datos.Reader["numero_factura"].ToString(),
                         DetallesCliente = new Cliente
                         {
-                            Id = (int)datos.Reader["id_cliente"]
+                            Id = (int)datos.Reader["id_cliente"],
+                            Nombre = datos.Reader["nombre_cliente"].ToString()
                         },
                         DetallesUsuario = new Usuario
                         {
-                            Id = (int)datos.Reader["id_usuario"]
+                            Id = (int)datos.Reader["id_usuario"],
+                            Nombre = datos.Reader["nombre_usuario"].ToString()
                         }
                     };
 

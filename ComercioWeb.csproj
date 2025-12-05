@@ -119,6 +119,7 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
+    <Content Include="Facturacion.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="GestionarCompra.aspx" />
     <Content Include="GestionarVenta.aspx" />
@@ -213,6 +214,13 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Facturacion.aspx.cs">
+      <DependentUpon>Facturacion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Facturacion.aspx.designer.cs">
+      <DependentUpon>Facturacion.aspx</DependentUpon>
     </Compile>
     <Compile Include="GestionarCompra.aspx.cs">
       <DependentUpon>GestionarCompra.aspx</DependentUpon>

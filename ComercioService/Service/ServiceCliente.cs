@@ -12,8 +12,8 @@ namespace ComercioService.Service
     {
         public List<Cliente> listar()
         {
-            List<Cliente> lista = new List<Cliente>();
             DataAccess datos = new DataAccess();
+            List<Cliente> lista = new List<Cliente>();
 
             try
             {
