@@ -101,5 +101,26 @@ namespace Comercio
             string numFactura = btn.CommandArgument;
             Response.Redirect("Facturacion.aspx?factura=" + numFactura);
         }
+
+        protected void gvFacturas_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "Imprimir")
+            {
+                string numeroFactura = e.CommandArgument.ToString();
+
+                ServiceVenta service = new ServiceVenta();
+                var lista = service.ListarPorNumeroFactura(numeroFactura);
+
+                string json = JsonConvert.SerializeObject(lista);
+
+                ScriptManager.RegisterStartupScript(
+                    this,
+                    GetType(),
+                    "printPDF",
+                    $"imprimirFactura({json}, '{numeroFactura}');",
+                    true
+                );
+            }
+        }
     }
 }

@@ -18,6 +18,7 @@
 
                 <script>
                     const detalles = <%= JsonDetalles %>;
+
                     function generarPDF() {
                         const { jsPDF } = window.jspdf;
                         const doc = new jsPDF();
@@ -48,6 +49,41 @@
 
                         doc.save("Factura_" + numeroFactura + "pdf");
                     }
+
+                    function imprimirFactura(detalles, numeroFactura) {
+                        const { jsPDF } = window.jspdf;
+                        const doc = new jsPDF();
+
+                        doc.setFontSize(18);
+                        doc.text("Factura " + numeroFactura, 14, 20);
+
+                        doc.setFontSize(12);
+                        doc.text("Fecha: " + new Date().toLocaleDateString(), 14, 30);
+
+                        let body = detalles.map(d => [
+                            d.Producto.Nombre,
+                            d.Cantidad,
+                            d.PrecioUnitario,
+                            (d.Cantidad * d.PrecioUnitario).toFixed(2)
+                        ]);
+
+                        doc.autoTable({
+                            head: [['Producto', 'Cantidad', 'Precio', 'Subtotal']],
+                            body: body,
+                            startY: 40
+                        });
+
+                        let total = body.reduce((acc, x) => acc + parseFloat(x[3]), 0);
+                        doc.text("TOTAL: $" + total.toFixed(2), 14, doc.lastAutoTable.finalY + 15);
+
+                        const pdfUrl = doc.output('bloburl');
+
+                        const win = window.open(pdfUrl);
+
+                        win.onload = () => {
+                            win.print();
+                        };
+                    }
                 </script>
 
             </div>
@@ -76,7 +112,7 @@
         </div>
 
         <div class="overflow-y-auto max-h-96">
-            <asp:GridView ID="gvFacturas" runat="server" AutoGenerateColumns="False" CssClass="grid-dark" ShowHeaderWhenEmpty="True" EmptyDataText="No hay Ventas registradas.">
+            <asp:GridView ID="gvFacturas" runat="server" AutoGenerateColumns="False" OnRowCommand="gvFacturas_RowCommand"  CssClass="grid-dark" ShowHeaderWhenEmpty="True" EmptyDataText="No hay Ventas registradas.">
                 <Columns>
 
                     <asp:BoundField DataField="NumeroFactura" HeaderText="NumeroFactura" />
@@ -89,7 +125,7 @@
                             <div class="actions flex justify-left gap-4">
 
                                 <!-- Botón Editar -->
-                                <asp:LinkButton ID="btnImprimir" runat="server" CommandName="Imprimir" CommandArgument='<%# Eval("NumeroFactura") %>' CausesValidation="false" CssClass="material-icons-outlined">
+                                <asp:LinkButton ID="btnImprimir" runat="server" CommandName="Imprimir" CommandArgument='<%# Eval("NumeroFactura") %>'  CausesValidation="false" CssClass="material-icons-outlined">
                                     print
                                 </asp:LinkButton>
 
