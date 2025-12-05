@@ -8,6 +8,7 @@
     <div class="max-w-4xl mx-auto w-full flex-grow">
         <div class="mb-8 bg-[#111827] border-2 border-solid border-sky-500 p-4">
             <h1 class="text-white text-2xl font-bold">Registrar Nueva Venta</h1>
+            <asp:Label ID="lblMessage" runat="server" CssClass="text-green-400 font-medium" />
         </div>
 
         <div class="bg-[#1f2937] rounded-lg shadow-md p-6 mb-8 text-left space-y-6">

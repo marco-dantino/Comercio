@@ -11,10 +11,10 @@ namespace ComercioService.Service
     public class ServiceStock
     {
         private ServiceProducto Service = new ServiceProducto();
-        public void ActualizarStock<T>(List<T> listaDetalle, string tipoOperacion)
+        public bool ActualizarStock<T>(List<T> listaDetalle, string tipoOperacion)
         {
             if (tipoOperacion != "COMPRA" && tipoOperacion != "VENTA")
-                throw new Exception("Tipo operacion invalida");
+                return false;
 
             foreach (var detalle in listaDetalle)
             {
@@ -44,9 +44,12 @@ namespace ComercioService.Service
                 {
                     bool exito = Service.RestarStock(idProducto, cantidad);
                     if (!exito)
-                        throw new Exception($"Stock insuficiente para el producto con Id {idProducto}");
+                        return false;
+                        //throw new Exception($"Stock insuficiente para el producto con Id {idProducto}");
                 }
             }
+
+            return true;
         }
     }
 }

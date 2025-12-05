@@ -56,12 +56,18 @@ namespace Comercio
             ServiceProducto Service = new ServiceProducto();
             Producto producto = new Producto();
 
-            //validacion temporal (hacer validaciones)
+            //validacion temporal
             if (ddlProducto.SelectedValue == "" || txtCantidad.Text == "" || ddlCliente.SelectedValue == "") return;
 
             DetalleVenta detalle = new DetalleVenta();
             producto = Service.buscarPorId(int.Parse(ddlProducto.SelectedValue));
             
+            if(producto.StockActual < int.Parse(txtCantidad.Text)) 
+            {
+                lblMenssageStatus($"Stock insuficiente para el producto {producto.Nombre}. Stock disponible: {producto.StockActual}", "error");
+                return;
+            }
+
             detalle.Id = producto.Id;
             detalle.Cantidad = int.Parse(txtCantidad.Text);
             detalle.PrecioUnitario = producto.PrecioVenta;
@@ -71,6 +77,23 @@ namespace Comercio
 
             gvDetalleVenta.DataSource = ListaDetalle;
             gvDetalleVenta.DataBind();
+        }
+        private void lblMenssageStatus(string mensaje, string type = "success")
+        {
+            lblMessage.Text = mensaje;
+
+            if (type == "error")
+            {
+                lblMessage.CssClass = "block mt-4 px-4 py-2 rounded-md bg-red-900 text-red-300 border border-red-700 font-medium";
+            }
+            else if (type == "warning")
+            {
+                lblMessage.CssClass = "block mt-4 px-4 py-2 rounded-md bg-yellow-900 text-yellow-300 border border-yellow-700 font-medium";
+            }
+            else
+            {
+                lblMessage.CssClass = "block mt-4 px-4 py-2 rounded-md bg-green-900 text-green-300 border border-green-700 font-medium";
+            }
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
