@@ -53,6 +53,19 @@ namespace ComercioService.DataBase
                 connection.Close();
             }
         }
+        public int ExecuteNonQueryReturn()
+        {
+            command.Connection = connection;
+            try
+            {
+                connection.Open();
+                return command.ExecuteNonQuery();
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
 
         public object ejecutarScalar()
         {

@@ -87,16 +87,18 @@ namespace Comercio
             cliente = serviceCliente.buscarPorId(idCliente);
             cliente.Id = idCliente;
 
+            Usuario user = (Usuario)Session["usuario"];
+
             venta.DetallesCliente = cliente;
             venta.DetallesUsuario = new Usuario();
 
-            venta.DetallesUsuario.Id = 1;
-            venta.DetallesUsuario.Nombre = "Example Nombre";
-            venta.DetallesUsuario.Apellido = "Example Apellido";
-            venta.DetallesUsuario.Email = "marco.dantino@miasd.com";
+            venta.DetallesUsuario.Id = user.Id;
+            venta.DetallesUsuario.Nombre = user.Nombre;
+            venta.DetallesUsuario.Apellido = user.Apellido;
+            venta.DetallesUsuario.Email = user.Email;
 
-            // TASK: update al stock actual de los productos
-            // Cargar obj usuario logueado
+            ServiceStock stockService = new ServiceStock();
+            stockService.ActualizarStock(ListaDetalle, "VENTA");
 
             int idVenta = Service.agregar(venta, ListaDetalle);
 

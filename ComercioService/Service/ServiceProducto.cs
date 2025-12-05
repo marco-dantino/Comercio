@@ -274,6 +274,37 @@ namespace ComercioService.Service
             finally { datos.cerrarConexion(); }
         }
 
+        public void SumarStock(int idProducto, int cantidad)
+        {
+            DataAccess data = new DataAccess();
+            string consulta = "UPDATE PRODUCTOS SET stock_actual = stock_actual + @cantidad WHERE id = @id";
+            data.setearConsulta(consulta);
+            
+            data.setearParametro("@id", idProducto);
+            data.setearParametro("@cantidad", cantidad);
+
+            data.ExecuteNonQuery();
+            data.cerrarConexion();
+        }
+
+        public bool RestarStock(int idProducto, int cantidad)
+        {
+            DataAccess data = new DataAccess();
+
+            try
+            {
+                data.setearConsulta("UPDATE PRODUCTOS SET stock_actual = stock_actual - @cantidad WHERE id = @id AND stock_actual >= @cantidad");
+                data.setearParametro("@cantidad", cantidad);
+                data.setearParametro("@id", idProducto);
+
+                int filasAfectadas = data.ExecuteNonQueryReturn();
+                return filasAfectadas > 0;
+            }
+            finally
+            {
+                data.cerrarConexion();
+            }
+        }
 
         //public void activarProducto()
         //{

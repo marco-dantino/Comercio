@@ -4,6 +4,7 @@ using ComercioDomain.Sales;
 using ComercioService.DataBase;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -131,6 +132,43 @@ namespace ComercioService.Service
                         {
                             Id = (int)datos.Reader["id_usuario"],
                             Nombre = datos.Reader["nombre_usuario"].ToString()
+                        }
+                    };
+
+                    lista.Add(aux);
+                }
+
+                return lista;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+        public List<DetalleVenta> ListarPorNumeroFactura(string numeroFactura)
+        {
+            DataAccess datos = new DataAccess();
+            List<DetalleVenta> lista = new List<DetalleVenta>();
+
+            try
+            {
+                datos.setearConsulta(@"SELECT VENTAS.numero_factura, PRODUCTOS.nombre AS nombre_producto, DETALLE_VENTAS.cantidad, DETALLE_VENTAS.precio_unitario FROM DETALLE_VENTAS INNER JOIN PRODUCTOS ON DETALLE_VENTAS.id_producto = PRODUCTOS.id INNER JOIN VENTAS ON DETALLE_VENTAS.id_venta = VENTAS.id WHERE VENTAS.numero_factura = @numero_factura;");
+                datos.setearParametro("@numero_factura", numeroFactura);
+                datos.ejecutarLectura();
+
+                while (datos.Reader.Read())
+                {
+                    DetalleVenta aux = new DetalleVenta
+                    {
+                        Cantidad = (int)datos.Reader["cantidad"],
+                        PrecioUnitario = Convert.ToSingle(datos.Reader["precio_unitario"]),
+                        Producto = new Producto
+                        {
+                            Nombre = datos.Reader["nombre_producto"].ToString()
+                        },
+                        Venta = new Venta
+                        {
+                            NumeroFactura = datos.Reader["numero_factura"].ToString()
                         }
                     };
 

@@ -97,7 +97,8 @@ namespace Comercio
             compra.Total = ListaDetalle.Sum(x => x.Subtotal);
             compra.Proveedor = new Proveedor { Id = int.Parse(ddlProveedor.SelectedValue) };
 
-            // TASK: update al stock actual de los productos
+            ServiceStock stockService = new ServiceStock();
+            stockService.ActualizarStock(ListaDetalle, "COMPRA");
 
             int idCompra = Service.agregar(compra, ListaDetalle);
 

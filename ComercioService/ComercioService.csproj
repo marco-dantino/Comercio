@@ -55,6 +55,7 @@
     <Compile Include="Service\ServiceProducto.cs" />
     <Compile Include="Service\ServiceProveedor.cs" />
     <Compile Include="Service\ServiceRol.cs" />
+    <Compile Include="Service\ServiceStock.cs" />
     <Compile Include="Service\ServiceUsuario.cs" />
     <Compile Include="Service\ServiceVenta.cs" />
   </ItemGroup>

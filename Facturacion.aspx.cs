@@ -2,6 +2,7 @@
 using ComercioDomain.Sales;
 using ComercioService;
 using ComercioService.Service;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +15,27 @@ namespace Comercio
 {
     public partial class Facturacion : PageWithAuth
     {
+        protected string JsonDetalles = "[]";
         protected void Page_Load(object sender, EventArgs e)
         {
+            string numero = Request.QueryString["factura"];
+
+            if (!string.IsNullOrEmpty(numero))
+            {
+                ServiceVenta service = new ServiceVenta();
+                var lista = service.ListarPorNumeroFactura(numero);
+
+                JsonDetalles = JsonConvert.SerializeObject(lista);
+
+                ScriptManager.RegisterStartupScript(
+                    this,
+                    GetType(),
+                    "generarPDF",
+                    "generarPDF();",
+                    true
+                );
+            }
+
             if (!IsPostBack)
             {
                 cargarGrid();
@@ -73,6 +93,13 @@ namespace Comercio
             {
                 lblMessage.CssClass = "block mt-4 px-4 py-2 rounded-md bg-green-900 text-green-300 border border-green-700 font-medium";
             }
+        }
+
+        protected void btnPDF_Click(object sender, EventArgs e)
+        {
+            var btn = (LinkButton)sender;
+            string numFactura = btn.CommandArgument;
+            Response.Redirect("Facturacion.aspx?factura=" + numFactura);
         }
     }
 }
