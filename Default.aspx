@@ -9,32 +9,51 @@
     <div class="max-w-7xl mx-auto text-center">
         <h2 class="text-3xl sm:text-4xl font-semibold text-slate-300 mb-12">Bienvenido de nuevo</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-            <a class="group block p-6 sm:p-8 bg-gray-800 border border-slate-800 rounded-lg shadow-sm" href="GestionarCompra.aspx">
+            <%if (UsuarioEsAdmin){%>
+            <a class="group block p-6 sm:p-8 bg-gradient-to-r from-gray-700 to-gray-900 border border-slate-700 rounded-xl shadow-lg hover:shadow-2xl transition-transform transform hover:scale-105" href="GestionarCompra.aspx">
                 <div class="flex justify-center mb-4">
-                    <span class="material-icons-outlined text-primary text-5xl sm:text-6xl">shopping_cart
+                    <span class="material-icons-outlined text-primary text-5xl sm:text-6xl">
+                        shopping_cart
                     </span>
                 </div>
-                <h3 class="text-lg font-bold text-white mb-2">Gestionar Compras</h3>
+                <h3 class="text-xl font-bold text-white mb-2 text-center">Gestionar Compras</h3>
                 <p class="text-sm text-slate-400">
                     Registra nuevas compras y administra tus proveedores.
                 </p>
             </a>
-            <a class="group block p-6 sm:p-8 bg-gray-800 border border-slate-800 rounded-lg shadow-sm" href="GestionarVenta.aspx">
+            <%} else { %>
+            <a class="group block p-6 sm:p-8 bg-gradient-to-r from-gray-700 to-gray-900 border border-slate-700 rounded-xl shadow-lg hover:shadow-2xl transition-transform transform hover:scale-105">
                 <div class="flex justify-center mb-4">
-                    <span class="material-icons-outlined text-primary text-5xl sm:text-6xl">sell
+                        <span class="material-icons-outlined text-primary text-5xl sm:text-6xl">
+                            person
+                        </span>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2 text-center">¡Bienvenido!</h3>
+                <p class="text-sm text-slate-400 text-center">
+                    <%= NombreUsuario %>
+                </p>
+            </a>
+            <%}%>
+            
+            <a class="group block p-6 sm:p-8 bg-gradient-to-r from-gray-700 to-gray-900 border border-slate-700 rounded-xl shadow-lg hover:shadow-2xl transition-transform transform hover:scale-105" href="GestionarVenta.aspx">
+                <div class="flex justify-center mb-4">
+                    <span class="material-icons-outlined text-primary text-5xl sm:text-6xl">
+                        sell
                     </span>
                 </div>
-                <h3 class="text-lg font-bold text-white mb-2">Gestionar Ventas</h3>
+                <h3 class="text-xl font-bold text-white mb-2 text-center">Gestionar Ventas</h3>
                 <p class="text-sm text-slate-400">
                     Crea nuevas ventas, gestiona clientes y productos.
                 </p>
             </a>
-            <a class="group block p-6 sm:p-8 bg-gray-800 border border-slate-800 rounded-lg shadow-sm" href="#">
+
+            <a class="group block p-6 sm:p-8 bg-gradient-to-r from-gray-700 to-gray-900 border border-slate-700 rounded-xl shadow-lg hover:shadow-2xl transition-transform transform hover:scale-105" href="#">
                 <div class="flex justify-center mb-4">
-                    <span class="material-icons-outlined text-primary text-5xl sm:text-6xl">receipt_long
+                    <span class="material-icons-outlined text-primary text-5xl sm:text-6xl">
+                        receipt_long
                     </span>
                 </div>
-                <h3 class="text-lg font-bold text-white mb-2">Ver Facturación</h3>
+                <h3 class="text-xl font-bold text-white mb-2 text-center">Ver Facturación</h3>
                 <p class="text-sm text-slate-400">
                     Consulta y exporta los informes de facturación.
                 </p>

@@ -1,4 +1,5 @@
 ﻿using ComercioDomain;
+using ComercioService;
 using ComercioService.Service;
 using System;
 using System.Collections.Generic;
@@ -9,12 +10,14 @@ using System.Web.UI.WebControls;
 
 namespace Comercio
 {
-    public partial class Clientes : System.Web.UI.Page
+    public partial class Clientes : PageWithAuth
     {
+        public bool UsuarioEsAdmin => ServiceSeguridad.EsAdmin();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                gvCliente.Columns[5].Visible = UsuarioEsAdmin;
                 cargarGrid();
             }
         }

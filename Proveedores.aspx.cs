@@ -1,4 +1,5 @@
 ﻿using ComercioDomain;
+using ComercioService;
 using ComercioService.Service;
 using System;
 using System.Collections.Generic;
@@ -9,8 +10,9 @@ using System.Web.UI.WebControls;
 
 namespace Comercio
 {
-    public partial class Proveedores : System.Web.UI.Page
+    public partial class Proveedores : PageWithAuth
     {
+        protected override int? RequiredRole => (int)RolUsuario.ADMIN;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)

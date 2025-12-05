@@ -11,10 +11,12 @@
             <h1 class="text-3xl font-bold">Gestión de Productos</h1>
             <asp:Label ID="lblMessage" runat="server" CssClass="" />
             <asp:Label ID="lblMessage2" runat="server" CssClass="" />
+            <%if (UsuarioEsAdmin){%>
             <asp:Button ID="btnAgregaProducto" runat="server" CssClass="bg-green-600 hover:bg-green-700 text-white font-semibold px-5 py-2 rounded-lg transition" OnClick="btnAgregaProducto_Click" Text="Agregar Producto" />
-
+            <%}%>
         </div>
 
+        <%if (UsuarioEsAdmin){%>
         <div class="bg-[#1f2937] rounded-lg shadow-md p-6 mb-8 text-left space-y-6">
             <div class="grid md:grid-cols-4 gap-6">
 
@@ -70,6 +72,7 @@
                 </div>
             </div>
         </div>
+         <%}%>
 
         <asp:Panel ID="panelEdit" runat="server" CssClass="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-40" Visible="false">
             <div class="bg-gray-900 p-6 rounded-lg shadow-xl w-full max-w-md relative z-50">
@@ -93,11 +96,12 @@
                 <asp:DropDownList ID="ddlCategoriaEdit" runat="server" CssClass="w-full mb-3 p-2 rounded text-black"></asp:DropDownList>
                 <label for="ddlProveedorEdit">Proveedor</label>
                 <asp:DropDownList ID="ddlProveedorEdit" runat="server" CssClass="w-full mb-3 p-2 rounded text-black"></asp:DropDownList>
-
+                <%if (UsuarioEsAdmin){%>
                 <div class="flex justify-end gap-3 mt-4">
                     <asp:Button ID="btnCerrarModal" runat="server" Text="Cancelar" CssClass="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded" CausesValidation="false" OnClick="btnCerrarModal_Click" />
                     <asp:Button ID="btnGuardarProducto" runat="server" Text="Guardar cambios" CssClass="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded" CausesValidation="false" OnClick="btnGuardarProducto_Click" />
                 </div>
+                <%}%>
             </div>
         </asp:Panel>
 

@@ -1,4 +1,5 @@
 ﻿using ComercioDomain;
+using ComercioService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace Comercio
 {
     public partial class SiteMaster : MasterPage
     {
+        public bool UsuarioEsAdmin => ServiceSeguridad.EsAdmin();
         protected void Page_Load(object sender, EventArgs e)
         {
 

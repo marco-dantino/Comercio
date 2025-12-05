@@ -129,16 +129,20 @@
                         <div class="flex items-center">
                             <a class="text-white text-xl font-bold" href="Default.aspx">Gestión multriproposito</a>
                             <div class="hidden md:flex ml-10 space-x-8">
-                                <a id="LinkProducts" runat="server" href="Productos.aspx" class="text-gray-300 hover:text-white transition-colors">Productos</a>
-                                <a id="LinkCategorias" runat="server" href="Categorias.aspx" class="text-gray-300 hover:text-white transition-colors">Categorías</a>
-                                <a id="LinkMarcas" runat="server" href="Marcas.aspx" class="text-gray-300 hover:text-white transition-colors">Marcas</a>
-                                <a id="LinkUsuarios" runat="server" href="Usuarios.aspx" class="text-gray-300 hover:text-white transition-colors">Usuarios</a>
                                 <a id="LinkClientes" runat="server" href="Clientes.aspx" class="text-gray-300 hover:text-white transition-colors">Clientes</a>
-                                <a id="LinkProveedores" runat="server" href="Proveedores.aspx" class="text-gray-300 hover:text-white transition-colors">Proveedores</a>
+                                <a id="LinkProducts" runat="server" href="Productos.aspx" class="text-gray-300 hover:text-white transition-colors">Productos</a>
+
+                                <%if (UsuarioEsAdmin){%>
+                                    <a id="LinkCategorias" runat="server" href="Categorias.aspx" class="text-gray-300 hover:text-white transition-colors">Categorías</a>
+                                    <a id="LinkMarcas" runat="server" href="Marcas.aspx" class="text-gray-300 hover:text-white transition-colors">Marcas</a>
+                                    <a id="LinkUsuarios" runat="server" href="Usuarios.aspx" class="text-gray-300 hover:text-white transition-colors">Usuarios</a>
+                                    <a id="LinkProveedores" runat="server" href="Proveedores.aspx" class="text-gray-300 hover:text-white transition-colors">Proveedores</a>
+                                <%}%>
+                                
                             </div>
                         </div>
                         <div>
-                            <a href="Login.aspx" class="text-gray-300 hover:text-white transition-colors">Cerrar Sesión</a>
+                            <a runat="server" href="Logout.aspx?motivo=logout" class="text-gray-300 hover:text-white transition-colors">Cerrar Sesión</a>
                         </div>
                     </div>
                 </nav>

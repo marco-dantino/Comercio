@@ -81,8 +81,8 @@
                 </form>
 
                 <p class="text-center text-sm text-gray-400">
-                    ¿No tienes una cuenta?
-                <a href="#" class="text-red-500 hover:underline">Regístrate aquí</a>
+                    ¿Olvidaste tu contraseña?
+                <a href="#" class="text-red-500 hover:underline">Click aquí</a>
                 </p>
             </div>
         </div>

@@ -9,10 +9,12 @@
          <h1 class="text-3xl font-bold">Gestión de Clientes</h1>
          <asp:Label ID="lblMessage" runat="server" CssClass="text-green-400 font-medium" />
          <asp:Label ID="lblMessage2" runat="server" CssClass="text-red-400 font-medium" />
+         <%if (UsuarioEsAdmin){%>
          <asp:Button ID="btnAgregaCliente" runat="server" OnClick="btnAgregaCliente_Click" CssClass="bg-green-600 hover:bg-green-700 text-white font-semibold px-5 py-2 rounded-lg transition" Text="Agregar Cliente" />
-
+         <%}%>
      </div>
 
+         <%if (UsuarioEsAdmin){%>
      <div class="bg-[#1f2937] rounded-lg shadow-md p-6 mb-8 text-left space-y-6">
          <div class="grid md:grid-cols-3 gap-6">
 
@@ -49,6 +51,7 @@
 
          </div>
      </div>
+         <%}%>
 
         <asp:Panel ID="panelEdit" runat="server" CssClass="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-40" Visible="false">
             <div class="bg-gray-900 p-6 rounded-lg shadow-xl w-full max-w-md relative z-50">

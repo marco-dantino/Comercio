@@ -32,7 +32,7 @@ namespace ComercioService.Service
                     usuario.Rol.RolId = (int)datos.Reader["id_rol"];
                     usuario.Rol.RolNombre = (string)datos.Reader["nombre_rol"];
 
-                    usuario.RolUsuario = (int)(datos.Reader["id_rol"]) == 2 ? RolUsuario.ADMIN : RolUsuario.VENDEDOR;
+                    usuario.RolUsuario = (int)(datos.Reader["id_rol"]) == 1 ? RolUsuario.ADMIN : RolUsuario.VENDEDOR;
 
                     return true;
                 }

@@ -57,8 +57,13 @@ namespace Comercio
             }
             catch (Exception ex)
             {
-                lblMenssageStatus("ERROR EXCEPTION", "error");
+                lblMenssageStatus(ex.ToString(), "error");
             }
+        }
+
+        protected void btnOlvidar_Click(object sender, EventArgs e)
+        {
+            lblMenssageStatus("Contactate con sistemas", "warning");
         }
     }
 }

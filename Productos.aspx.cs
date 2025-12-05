@@ -1,25 +1,22 @@
 ﻿using ComercioDomain;
+using ComercioService;
 using ComercioService.Service;
 using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Web;
-using System.Web.Services.Description;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Net.WebRequestMethods;
 
 namespace Comercio
 {
-    public partial class Productos : System.Web.UI.Page
+    public partial class Productos : PageWithAuth
     {
+        public bool UsuarioEsAdmin => ServiceSeguridad.EsAdmin();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                gvProductos.Columns[8].Visible = UsuarioEsAdmin;
                 cargarGrid();
 
                 cargarMarcas();

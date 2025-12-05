@@ -8,8 +8,8 @@ namespace ComercioDomain
 {
     public enum RolUsuario
     {
-        VENDEDOR = 1,
-        ADMIN = 2
+        ADMIN = 1,
+        VENDEDOR = 2
     }
     public class Usuario
     {

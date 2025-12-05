@@ -1,6 +1,7 @@
 ﻿using ComercioDomain;
 using ComercioDomain.Purchases;
 using ComercioDomain.Sales;
+using ComercioService;
 using ComercioService.Service;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using System.Web.UI.WebControls;
 
 namespace Comercio
 {
-    public partial class GestionarVenta : System.Web.UI.Page
+    public partial class GestionarVenta : PageWithAuth
     {
         protected void Page_Load(object sender, EventArgs e)
         {
